@@ -231,7 +231,9 @@ public partial class BNKReader:IDisposable
             var WEMStream = new MemoryStream(data);
             // And create a WEM reader
             var reader = new WEMReader(WEMStream);
-            reader.Open();
+            // If the file type isn't recognized, skip it
+            if (!reader.Open())
+                return null;
             // return the reader
             return reader;
         }
