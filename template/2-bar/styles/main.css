@@ -1,0 +1,126 @@
+﻿article h1:first-child, article h2:first-child, article h3:first-child, article h4:first-child {
+    margin-top: 0;
+}
+
+body {
+    font-size: 16px;
+}
+
+.navbar img {
+    height: 18px;
+    display: inline;
+    padding-right: 0.5em;
+}
+.navbar-toggle
+{
+    padding:0 0 0 0;
+    margin: 0 0 0 0;
+}
+.navbar, .navbar-nav {
+    font-family: 'Nunito',sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 4px;
+    min-height: 8px;
+    font-size: 12px;
+    text-rendering: optimizeLegibility;
+}
+.navbar-inverse {
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background-color: rgb(245,245,245);
+    border-bottom-color: rgb(200,200,200);
+    color: #333;
+}
+.navbar-nav li a {
+    letter-spacing: 0;
+    padding: 11px 15px;
+    line-height: 4px;
+}
+.navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-brand:hover,
+    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-text
+{
+    color: #ff8400;
+}
+.topcorner {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.navbar-form .form-control {
+    padding: 0px 12px;
+}
+.navbar-right
+{
+    margin-right:0px;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+    background-color: #ff8400;
+    font-weight:700;
+}
+.subnav {
+    line-height: 1em;
+    min-height: 2em;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+}
+.footer {
+    font-family: "Merriweather Sans", inherit;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.1em;
+    list-style-position: outside;
+    text-transform: uppercase;
+}
+
+.summary
+{ 
+    font-size: 16px;
+}
+
+.navbar-brand {
+    font-size: 12px;
+    padding-top: 3px;
+    padding-right: 3em;
+    height:26px;
+}
+
+.h1, h1 {
+    font-size: 30px;
+}
+
+article h1, article h2, article h3, article h4 {
+    margin-top: 25px;
+    font-weight: 600;
+}
+
+article h4 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.h5, h5 {
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.h6, h6 {
+    font-size: 16px;
+}
+
+.implements div:before {
+    content: '→';
+    margin-right: 5px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.sidetoc.shiftup {
+    bottom: 20px;
+}

@@ -1,0 +1,73 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "**.csproj"
+          ],
+          "exclude": [ "**/bin/**", "**/obj/**", "**/.editorconfig" ],
+          "src": "."
+        }
+      ],
+      "dest": "obj/api",
+      "filter": "filterConfig.yml",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml"
+        ],
+        "cwd": "obj"
+      },
+      {
+        "files": [
+          "api/index.md",
+          "api/gripes.md"
+        ]
+      },
+      {
+        "files": [
+          "toc.yml",
+          "*.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**",
+          "favicon.ico",
+          "icon-small.png"
+        ]
+      }
+    ],
+
+    "postProcessors": [ "ExtractSearchIndex" ],
+    "globalMetadata": {
+      "_enableSearch": "true",
+      "_appTitle": "Resources SDK",
+      "_appFaviconPath": "favicon.ico",
+      "_appLogoPath": "logo-small.png"
+    },
+    "xrefService": [
+      "https://xref.docs.microsoft.com/query?uid={uid}"
+    ],
+    "dest": "docs",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "template"
+    ],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}

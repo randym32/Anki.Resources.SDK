@@ -1,0 +1,85 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>This is a helper library to read in Cozmo and Vector resource folders, allowing playback of the sounds, and sprite sequences.</Description>
+    <Version>0.0.1</Version>
+    <Copyright>2020 Randall Maas</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <AssemblyName>Anki.Resources.SDK</AssemblyName>
+    <RootNamespace>Anki.Resources.SDK</RootNamespace>
+    <Company></Company>
+    <PackageProjectUrl>https://github.com/randym32/Anki.Resources.SDK</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/randym32/Anki.Resources.SDK</RepositoryUrl>
+    <PackageReleaseNotes>This allows reading and playing Vector and Cozmo sounds, and examining the sprites</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Authors>Randall Maas</Authors>
+    <PackageIcon>logo-big.png</PackageIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>G:\projects\vector\Anki.Resources.SDK\Anki.Resources.SDK.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>G:\projects\vector\Anki.Resources.SDK\Anki.Resources.SDK.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="docfx.console" Version="2.54.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NAudio" Version="1.10.0" />
+    <PackageReference Include="NAudio.Vorbis" Version="1.2.0" />
+    <PackageReference Include="NVorbis" Version="0.10.1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="logo-big.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FlatBuffers.Core">
+      <HintPath>FlatBuffers.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\Speech\" />
+  </ItemGroup>
+
+</Project>

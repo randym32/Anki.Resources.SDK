@@ -1,0 +1,525 @@
+// Renamed to vector_anim and Anki.VectorAnim
+namespace Anki.VectorAnim;
+
+/// <summary>
+/// The LiftHeight structure is used to specify how to move Vector’s lift.  The
+/// lift should reach the target height in the duration given, ramping up the
+/// movement speed smoothly (with some variability) until it reaches that.  
+/// </summary>
+table LiftHeight {
+  /// <summary>
+  /// The time at which the lift should begin motion.
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// How long the lift motion should last.
+  /// </summary>
+  durationTime_ms:uint;
+
+  /// <summary>
+  /// The height to lift the arms to.
+  /// </summary>
+  height_mm:ubyte;
+
+  /// <summary>
+  /// The amount of randomness allowed for the target height.  default: 0
+  /// </summary>
+  heightVariability_mm:ubyte = 0;
+}
+
+
+/// <summary>
+/// </summary>
+table ProceduralFace {
+  triggerTime_ms:uint;
+  faceAngle:float = 0.0;
+  faceCenterX:float = 0.0;
+  faceCenterY:float = 0.0;
+  faceScaleX:float = 1.0;
+  faceScaleY:float = 1.0;
+  leftEye:[float];
+  rightEye:[float];
+  scanlineOpacity:float = 1.0;
+}
+
+
+/// <summary>
+/// The HeadAngle structure is used to specify how to move Vector’s head.  The
+/// head should reach the target angle in the duration given, ramping up the
+/// movement speed smoothly (with some variability) until it reaches that that point.  
+/// </summary>
+table HeadAngle {
+  /// <summary>
+  /// The time at which the head motion should begin.
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// How long the head motion should last. 
+  /// </summary>
+  durationTime_ms:uint;
+
+  /// <summary>
+  /// The angle to move the head to.  This should be in the range -22.0° to 45.0°.
+  /// </summary>
+  angle_deg:byte;
+
+  /// <summary>
+  /// The amount of randomness allowed for the target head angle.  Default: 0
+  /// </summary>
+  angleVariability_deg:ubyte = 0;
+}
+
+
+/// <summary>
+/// The AudioEventGroup structure is used to randomly select an audio event (and
+/// volume), and send it to the audio subsystem.  
+/// </summary>
+table AudioEventGroup {
+  /// <summary>
+  /// The audio event IDs, weighted by a probability. 
+  /// </summary>
+  eventIds:[uint];
+
+  /// <summary>
+  /// The volume to play the selected audio at.
+  /// </summary>
+  volumes:[float];
+
+  /// <summary>
+  /// The probability weight that a given event will be selected.
+  /// </summary>
+  probabilities:[float];
+}
+
+
+/// <summary>
+/// The AudioState structure is used to put the audio system into a particular state.  
+/// </summary>
+table AudioState {
+  /// <summary>
+  /// The state group to modify.  Default: 0
+  /// </summary>
+  stateGroupId:uint = 0;
+
+  /// <summary>
+  /// The new state to put the group into.  Default: 0
+  /// </summary>
+  stateId:uint = 0;
+}
+
+
+/// <summary>
+/// The AudioSwitch structure is used to put an audio switch into a particular setting.
+/// </summary>
+table AudioSwitch {
+  /// <summary>
+  /// The switch to modify. Default: 0
+  /// </summary>
+  switchGroupId:uint = 0;
+
+  /// <summary>
+  /// The new state to the put the switch into.  Default: 0
+  /// </summary>
+  stateId:uint = 0;
+}
+
+
+/// <summary>
+/// The AudioParameter structure is used to set one of the sound parameters in
+/// the AudioKinetic Wwise subsystem.  
+/// </summary>
+table AudioParameter {
+  /// <summary>
+  /// The identifier of the parameter to set.  Default: 0
+  /// </summary>
+  parameterID:uint = 0;
+
+  /// <summary>
+  /// The value to set the parameter to.  Default: 0
+  /// </summary>
+  value:float = 0.0;
+
+  /// <summary>
+  /// The time at which the parameter should be set.  Default: 0
+  /// </summary>
+  time_ms:uint = 0;
+
+  /// <summary>
+  /// </summary>
+  curveType:ubyte = 0;
+}
+
+
+/// <summary>
+/// The RobotAudio structure is used to interact with the audio engine.
+/// </summary>
+table RobotAudio {
+  /// <summary>
+  /// The time the audio events should be sent, and the parameters should be set.
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// The set of possible audio events to send.
+  /// </summary>
+  eventGroups:[AudioEventGroup];
+
+  /// <summary>
+  /// The settings to put different audio states into.
+  /// </summary>
+  states:[AudioState];
+
+  /// <summary>
+  /// The configuration of the audio context –setting the audio “switches” to
+  /// use the right sounds and effects for the circumstances.
+  /// </summary>
+  switches:[AudioSwitch];
+
+  /// <summary>
+  /// The set of changes to make to the audio playback parameters.
+  /// </summary>
+  parameters:[AudioParameter];
+}
+
+
+/// <summary>
+/// The BackpackLights structure is used to animate the lights on Vector’s back.
+/// </summary>
+table BackpackLights {
+  /// <summary>
+  /// The time at which the backlights animation should begin.
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// The duration before a transition to the next backlight setting may begin.
+  /// During this time the lights should be illuminated with these colors; after
+  ///  this the colors may transition from these to the next colors.
+  /// </summary>
+  durationTime_ms:uint;
+
+  /// <summary>
+  /// Each color is represented as 4 floats (red, green, blue, and alpha), in
+  /// the range 0..1.  Alpha is always 0 (the value is ignored).
+  /// </summary>
+  Front:[float];
+
+  /// <summary>
+  /// Each color is represented as 4 floats (red, green, blue, and alpha), in
+  /// the range 0..1.  Alpha is always 0 (the value is ignored).
+  /// </summary>
+  Middle:[float];
+
+  /// <summary>
+  /// Each color is represented as 4 floats (red, green, blue, and alpha), in
+  /// the range 0..1.  Alpha is always 0 (the value is ignored).
+  /// </summary>
+  Back:[float];
+}
+
+
+/// <summary>
+/// The FaceAnimation structure is used to specify the JSON file to animation Vector’s display.
+/// </summary>
+table FaceAnimation {
+  /// <summary>
+  /// The time at the face animation should begin.
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// The time at the face animation should begin.
+  /// </summary>
+  animName:string (required);
+
+  /// <summary>
+  /// This is new for Vector.  Default: 1.0
+  /// </summary>
+  scanlineOpacity:float = 1.0;
+}
+
+
+/// <summary>
+/// The SpriteBox structure defines a rectangular region on the display to draw an image from a file.  
+/// </summary>
+table SpriteBox {
+  /// <summary>
+  /// The time when Vector should begin to use this sprite box. 
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// The name of the sprite box. The animation engine may use this to select
+  /// the procedure(s) in charge managing the layer and sprite boxes. If an
+  /// image map is available for this animation, the sprite sequence it
+  /// describes will be displayed in this rectangle.
+  /// </summary>
+  spriteBoxName:string (required);
+
+  /// <summary>
+  /// The name of the layer.  The animation engine may use this to select the
+  /// procedure(s) in charge managing the layer and sprite boxes
+  /// </summary>
+  layer:string (required);
+
+  /// <summary>
+  /// This can be the name of a sprite sequence, independent sprite, or
+  /// "clear_sprite_box" for an empty image.  
+  /// </summary>
+  assetName:string (required);
+
+  /// <summary>
+  /// "CustomHue" if the PNG images should be converted from gray scale to the
+  /// colour using the current eye colour setting.
+  /// "RGBA" if the image should be drawn as is.
+  /// </summary>
+  renderMethod:string (required);
+
+  /// <summary>
+  /// </summary>
+  spriteSeqEndType:string (required);
+
+  /// <summary>
+  /// The % opacity of the image pixels.  Default is 100.0
+  /// </summary>
+  alpha:float = 100.0;
+
+  /// <summary>
+  /// The x coordinate of the upper left hand corner of the sprite box.  The x 
+  /// coordinate can be outside of the display area; only the portion of the
+  /// image within the display area (0..183) will be shown.  This allows an
+  /// image to slide in..  Default: 0
+  /// </summary>
+  xPos:int = 0;
+
+  /// <summary>
+  /// The y coordinate of the upper left hand corner of the sprite box.  The y
+  /// coordinate can be outside of the display area; only the portion of the
+  /// image within the display area (0..95) will be shown.  This allows an
+  /// image to slide in.  Default: 00
+  /// </summary>
+  yPos:int = 0;
+
+  /// <summary>
+  /// The width of the sprite box. Unit: pixels
+  /// </summary>
+  width:uint;
+
+  /// <summary>
+  /// The height of the sprite box. Unit: pixels
+  /// </summary>
+  height:uint;
+}
+
+
+/// <summary>
+/// The Event structure is used to pause the animation at the given time code
+/// until the event is received or cancelled.  When the event is received, the
+/// animation resumes the given time code.   
+/// </summary>
+table Event {
+  /// <summary>
+  /// The animation is paused at this time, until it receives the event.  Once
+  /// the event is received, the animation is resumed from this point in time.
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// The name of the event to wait for.  Required
+  /// </summary>
+  event_id:string (required);
+}
+
+
+/// <summary>
+/// The BodyMotion structure is used to specify driving motions.
+/// </summary>
+table BodyMotion {
+  /// <summary>
+  /// The time at which the motion should begin
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// The duration that the robot should drive.
+  /// </summary>
+  durationTime_ms:uint;
+
+  /// <summary>
+  /// </summary>
+  radius_mm:string (required);
+
+  /// <summary>
+  /// The speed at which the robot should move.
+  /// </summary>
+  speed:short;
+}
+
+
+/// <summary>
+/// The RecordHeading structure is used to recording the robots heading, at the
+/// start of an animation. [or possibly after a randomized body motion?]  
+/// </summary>
+table RecordHeading {
+  /// <summary>
+  /// The time when the robot should record his heading
+  /// </summary>
+  triggerTime_ms:uint;
+}
+
+
+/// <summary>
+/// The TurnToRecordedHeading is used to specify how Vector should turn to the
+/// previously recorded heading.  The robot reach the target heading in the
+/// duration given, ramping up the movement speed smoothly until it reaches
+/// that position (within some tolerance).   
+/// </summary>
+table TurnToRecordedHeading {
+  /// <summary>
+  /// The time when Vector should begin to turn to the recorded heading.
+  /// </summary>
+  triggerTime_ms:uint;
+
+  /// <summary>
+  /// The amount of time to move to the recorded heading.
+  /// </summary>
+  durationTime_ms:uint;
+
+  /// <summary>
+  /// </summary>
+  offset_deg:short = 0;
+
+  /// <summary>
+  /// The speed that Vector should turn at.
+  /// </summary>
+  speed_degPerSec:short;
+
+  /// <summary>
+  /// How fast Vector should accelerate when turning.  default: 1000
+  /// </summary>
+  accel_degPerSec2:short = 1000;
+
+  /// <summary>
+  /// How fast Vector should decelerate when turning.  default: 1000
+  /// </summary>
+  decel_degPerSec2:short = 1000;
+
+  /// <summary>
+  /// This specifies how close the actual heading is to the target before
+  /// considering the movement complete.  Default: 2
+  /// </summary>
+  tolerance_deg:ushort = 2;
+
+  /// <summary>
+  /// </summary>
+  numHalfRevs:ushort = 0;
+
+  /// <summary>
+  /// </summary>
+  useShortestDir:bool = false;
+}
+
+
+/// <summary>
+/// The Keyframes structure provides separate time-coded key frames for each of
+/// the possible tracks in the animation.  The tracks are optional.  There
+/// tracks may have different numbers of key frames.  The key frames do not
+///  need to start at the same time(s).   
+/// </summary>
+table Keyframes {
+  /// <summary>
+  /// A series of key frames describing when and how the lift should move.
+  /// </summary>
+  LiftHeightKeyFrame:[LiftHeight];
+
+  /// <summary>
+  /// A series of key frames describing when and how the eyes should move.
+  /// </summary>
+  ProceduralFaceKeyFrame:[ProceduralFace];
+
+  /// <summary>
+  /// A series of key frames describing when and how the head should move.
+  /// </summary>
+  HeadAngleKeyFrame:[HeadAngle];
+
+  /// <summary>
+  ///A series of key frames describing when and how audio should be played.
+  /// </summary>
+  RobotAudioKeyFrame:[RobotAudio];
+
+  /// <summary>
+  /// A series of key frames describing when and how the backpack lights should
+  /// be illuminated.
+  /// </summary>
+  BackpackLightsKeyFrame:[BackpackLights];
+
+  /// <summary>
+  /// A series of key frames describing when and how the face should move.
+  /// </summary>
+  FaceAnimationKeyFrame:[FaceAnimation];
+
+  /// <summary>
+  /// Note: many behaviors do not support event key frames; those that do expect
+  /// a specific event, and number of event key frames.
+  /// </summary>
+  EventKeyFrame:[Event];
+
+  /// <summary>
+  /// A series of key frames to drive and turn the body.
+  /// </summary>
+  BodyMotionKeyFrame:[BodyMotion];
+
+  /// <summary>
+  /// A series of key frames to record the current heading of the robot so that
+  /// the animation can return to them later.
+  /// </summary>
+  RecordHeadingKeyFrame:[RecordHeading];
+
+  /// <summary>
+  /// A series of key frames used to return the robot so a previously saved
+  /// heading after a movement.
+  /// </summary>
+  TurnToRecordedHeadingKeyFrame:[TurnToRecordedHeading];
+
+  /// <summary>
+  /// A series of key frames for the visual sprite box animation.  New in version 1.7.
+  /// </summary>
+  SpriteBoxKeyFrame:[SpriteBox];
+}
+
+
+/// <summary>
+/// The AnimClip is a named animation that can be played.  
+/// </summary>
+table AnimClip {
+  /// <summary>
+  /// The name of the animation clip; this is also called the animation trigger name.
+  /// </summary>
+  Name:string;
+
+  /// <summary>
+  /// The key frames for each of the tracks for this animation clip
+  /// </summary>
+  keyframes:Keyframes;
+}
+
+
+/// <summary>
+/// An animation file is defined by this structure at the top level.
+/// It provides one or more animation “clips” in the file.  Each clip has one or more tracks.
+/// </summary>
+table AnimClips {
+  /// </summary>
+  /// An array of named animation clips
+  /// <summary>
+  clips:[AnimClip];
+}
+
+/// <summary>
+/// An animation file is defined by this structure at the top level.
+/// It provides one or more animation “clips” in the file.  Each clip has one or more tracks.
+/// </summary>
+root_type AnimClips;
+

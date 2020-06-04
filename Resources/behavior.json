@@ -1,0 +1,31 @@
+﻿{
+  // The keys that refer to other behaviors (via a behavior ID)
+  "behaviorRefKeys": [
+    "behavior",
+    "listeningBehavior",
+    "longListeningBehavior",
+    "offChargerDancingBehavior",
+    "onChargerDancingBehavior",
+    "delegateID",
+    "delegateBehaviorID",
+    "searchForFaceBehavior",
+    "followUpBehaviorID",
+    "driveOffChargerBehavior",
+    "findFaceBehavior",
+    "postBehaviorSuggestion",
+    "getInBehavior",
+    "goToChargerBehavior",
+    "askForHelpBehavior",
+    "searchBehavior"
+  ],
+
+  // The keys that refer to conditions
+  "conditionKeys": [
+    "onTreadsTimeCondition",
+    "wantsToBeActivatedCondition",
+    "wantsToCancelSelfCondition"
+  ],
+  // This maps a type to the keys that are acceptable
+  "type2keys": {
+  }
+}

@@ -1,0 +1,8 @@
+apiRules:
+- exclude:
+    uidRegex: ^Anki\.Vector\.ExternalInterface
+- exclude:
+    uidRegex: ^System\.Object
+- exclude:
+    uidRegex: ^System\.Exception
+    

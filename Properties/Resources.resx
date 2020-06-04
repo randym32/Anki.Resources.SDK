@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlexaInteractionActive" xml:space="preserve">
+    <value>interacting with Alexa</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="assets.json" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\assets.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="audioEvents" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\audioEvents.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="BatteryLevel" xml:space="preserve">
+    <value>{0} battery</value>
+  </data>
+  <data name="BeatDetected" xml:space="preserve">
+    <value>beat has been detected</value>
+  </data>
+  <data name="CarryingCube" xml:space="preserve">
+    <value>carrying a cube</value>
+  </data>
+  <data name="CliffDetected" xml:space="preserve">
+    <value>detected a cliff</value>
+  </data>
+  <data name="condition.json" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\condition.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="behavior.json" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\behavior.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="EyeContact" xml:space="preserve">
+    <value>eye contact</value>
+  </data>
+  <data name="Falling" xml:space="preserve">
+    <value>falling</value>
+  </data>
+  <data name="HighTemperature" xml:space="preserve">
+    <value>high temperature</value>
+  </data>
+  <data name="InAir" xml:space="preserve">
+    <value>in the air</value>
+  </data>
+  <data name="InCalmMode" xml:space="preserve">
+    <value>calm</value>
+  </data>
+  <data name="IsMaintenanceReboot" xml:space="preserve">
+    <value>maintenance reboot</value>
+  </data>
+  <data name="IsNightTime" xml:space="preserve">
+    <value>night time</value>
+  </data>
+  <data name="MotionDetected" xml:space="preserve">
+    <value>motion detected</value>
+  </data>
+  <data name="ObjectInitialDetection" xml:space="preserve">
+    <value>object initally detected</value>
+  </data>
+  <data name="ObjectKnown" xml:space="preserve">
+    <value>object known</value>
+  </data>
+  <data name="ObstacleDetected" xml:space="preserve">
+    <value>obstacle detected</value>
+  </data>
+  <data name="OffTreads" xml:space="preserve">
+    <value>off treads</value>
+  </data>
+  <data name="OnBack" xml:space="preserve">
+    <value>on his back</value>
+  </data>
+  <data name="OnCharger" xml:space="preserve">
+    <value>on charger</value>
+  </data>
+  <data name="OnChargerPlatform" xml:space="preserve">
+    <value>on charger platform</value>
+  </data>
+  <data name="OnFace" xml:space="preserve">
+    <value>on his face</value>
+  </data>
+  <data name="OnLeftSide" xml:space="preserve">
+    <value>on left side</value>
+  </data>
+  <data name="OnRightSide" xml:space="preserve">
+    <value>on ride side</value>
+  </data>
+  <data name="OnTreads" xml:space="preserve">
+    <value>on treads</value>
+  </data>
+  <data name="ProxInRange" xml:space="preserve">
+    <value>in range</value>
+  </data>
+  <data name="RobotInHabitat" xml:space="preserve">
+    <value>in habitat</value>
+  </data>
+  <data name="RobotPickedUp" xml:space="preserve">
+    <value>picked up</value>
+  </data>
+  <data name="RobotPitchInRange" xml:space="preserve">
+    <value>pitch</value>
+  </data>
+  <data name="RobotPlacedOnSlope" xml:space="preserve">
+    <value>on a slope</value>
+  </data>
+  <data name="RobotRollInRange" xml:space="preserve">
+    <value>roll in range</value>
+  </data>
+  <data name="RobotShaken" xml:space="preserve">
+    <value>shaken</value>
+  </data>
+  <data name="RobotTouched" xml:space="preserve">
+    <value>touched</value>
+  </data>
+  <data name="SalientPointDetected" xml:space="preserve">
+    <value>salient point detected</value>
+  </data>
+  <data name="StuckOnEdge" xml:space="preserve">
+    <value>stuck on edge</value>
+  </data>
+  <data name="TimedDedup" xml:space="preserve">
+    <value>timer dedup?</value>
+  </data>
+  <data name="TimerInRange" xml:space="preserve">
+    <value>timer in range</value>
+  </data>
+  <data name="TooHotToCharge" xml:space="preserve">
+    <value>too hot to charge</value>
+  </data>
+  <data name="TriggerWordPending" xml:space="preserve">
+    <value>heard trigger word</value>
+  </data>
+  <data name="UnexpectedMovement" xml:space="preserve">
+    <value>unexpected movement</value>
+  </data>
+  <data name="UserIsHoldingCube" xml:space="preserve">
+    <value>cube is being held</value>
+  </data>
+</root>
