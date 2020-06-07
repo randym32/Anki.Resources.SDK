@@ -94,7 +94,7 @@ public partial class CompositeImage
     /// <returns>null if the layer does not exist (or is undefined), otherwise
     /// a dictionary mapping the sprite box name to the sprite name to employ.
     /// </returns>
-    public object ImageMap(string layerName)
+    public Dictionary<string,string> ImageMap(string layerName)
     {
         // Check to see if no maps were defined
         if (null == maps)

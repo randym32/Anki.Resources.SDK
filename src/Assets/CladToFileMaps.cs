@@ -118,7 +118,7 @@ partial class Assets
             {
                 ReadCommentHandling = JsonCommentHandling.Skip,
                 AllowTrailingCommas = true,
-                IgnoreNullValues=true
+                IgnoreNullValues    = true
             };
         var items = JsonSerializer.Deserialize<CTLayout[]>(text, JSONOptions);
 

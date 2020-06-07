@@ -1,4 +1,4 @@
-# Anki Vector Resources SDK  (.NET)
+# Anki Vector/Cozmo Resources SDK  (.NET)
 
 This SDK allows manipulation of a resources folder from an "over the air update"
 OTA file for [Anki Vector](https://www.anki.com/en-us/vector) and the APK files
@@ -8,7 +8,8 @@ Linux.  This requires that you know how to one of these files, and how extract
 the contents.
 
 * You can play the audio sounds on your computer
-* Examine the animations on your computer,
+* Examine the sprite-sequences, and other animations on your computer,
+
 * It has lint-like checking to help catch flaws in the resource bundle, so that
    they can be eliminated before shipping, reducing the test effort
 
@@ -38,6 +39,13 @@ To play with the sprites you will need to add the following packages to your pro
 ### Download
 * [Github](https://github.com/randym32/Anki.Resources.SDK)
 * [Nuget](https://www.nuget.org/packages/Anki.Resources.SDK/)
+
+### SDK Example Code  / Tutorial Programs
+
+Some examples of how to use the SDK can be found at
+
+* [Anki.Resources.Samples GitHub project](https://github.com/randym/Anki.Resouces.Samples)
+
 
 ## Documentation
 The documentation can be found at [randym32.github.io/Anki.Resources.SDK](https://randym32.github.io/Anki.Resources.SDK)

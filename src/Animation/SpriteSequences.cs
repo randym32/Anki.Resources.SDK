@@ -108,20 +108,24 @@ public class SpriteSequence
 public partial class Assets
 {
     /// <summary>
-    /// The maps the independent partial file name to the path
+    /// The maps the independent partial file name to the path.
+    /// The name is uppercase to make caseless matches easy.
     /// </summary>
     Dictionary<string, string> spriteSequencePathCache;
 
     /// <summary>
-    /// Provides a list of the sprite sequence names
+    /// Provides a list of the sprite sequence names, preserving the case used
+    /// in the file system.
     /// </summary>
-    public IReadOnlyCollection<string> SpriteSequenceNames
+    public IEnumerable<string> SpriteSequenceNames
     {
         get
         {
-            // build the file name cache, if has not been built
+            // Build the file name cache, if has not been built
             BuildSpriteSequencePaths();
-            return spriteSequencePathCache.Keys;
+            // Iterate over the names, but convert it into a nice printable form
+            foreach (var sprite in spriteSequencePathCache.Values)
+                yield return Path.GetFileName(sprite);
         }
     }
 

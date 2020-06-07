@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>This is a helper library to read in Cozmo and Vector resource folders, allowing playback of the sounds, and sprite sequences.</Description>
-    <Version>0.0.1</Version>
+    <Version>0.0.3</Version>
     <Copyright>2020 Randall Maas</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <AssemblyName>Anki.Resources.SDK</AssemblyName>
@@ -13,10 +13,13 @@
     <Company></Company>
     <PackageProjectUrl>https://github.com/randym32/Anki.Resources.SDK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/randym32/Anki.Resources.SDK</RepositoryUrl>
-    <PackageReleaseNotes>This allows reading and playing Vector and Cozmo sounds, and examining the sprites</PackageReleaseNotes>
+    <PackageReleaseNotes>This allows reading and playing Vector and Cozmo sounds, and examining the sprites.
+Preserves the case of the trigger names now, added a typed return for the CompositeImage ImageMap</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Authors>Randall Maas</Authors>
     <PackageIcon>logo-big.png</PackageIcon>
+    <AssemblyVersion>0.0.3.0</AssemblyVersion>
+    <FileVersion>0.0.3.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
