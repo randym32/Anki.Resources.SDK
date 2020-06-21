@@ -4,7 +4,7 @@ This SDK allows manipulation of a resources folder from an "over the air update"
 OTA file for [Anki Vector](https://www.anki.com/en-us/vector) and the APK files
 for [Anki Cozmo](https://www.anki.com/en-us/cozmo), in any .NET language
 (C#, VB.NET, F#) or language that interoperates (python) on Windows, Mac, and
-Linux.  This requires that you know how to one of these files, and how extract
+Linux.  This requires that you know how to get these files, and how extract
 the contents.
 
 * You can play the audio sounds on your computer
