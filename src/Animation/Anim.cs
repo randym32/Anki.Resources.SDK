@@ -103,7 +103,7 @@ partial class Assets
         {
             // Scan to build up the animation names, if we haven't done so already
             BuildAnimationPaths();
-                ScanAllBinFiles(null, out _);
+            ScanAllBinFiles(null, out _);
 
             // Return the keys
             return animation2BinPath.Keys;
@@ -111,9 +111,13 @@ partial class Assets
     }
 
     /// <summary>
-    /// Track which animation clips are defined in multiple files
+    /// Tracks which animation clips are defined in multiple files.
     /// </summary>
     readonly Dictionary<string, string> animMultiplyDefined = new Dictionary<string, string>();
+    /// <summary>
+    /// Tracks which animation clips are defined in multiple files.
+    /// </summary>
+    public IReadOnlyDictionary<string, string> AnimMultiplyDefined => animMultiplyDefined ;
 
     /// <summary>
     /// Add a mapping of the animation name to the file path

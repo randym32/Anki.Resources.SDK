@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Anki.AudioKinetic;
 using System.Text.Json;
+using System.Drawing;
 
 namespace Anki.Resources.SDK
 {
@@ -65,10 +66,10 @@ public partial class Assets: IDisposable
         text = Resource.ResourceManager.GetString("condition.json");
 
         // Get the dictionary
-        conditionSchema = JsonSerializer.Deserialize<ConditionSchema>(text, JSONOptions);
+        ConditionSchema = JsonSerializer.Deserialize<ConditionSchema>(text, JSONOptions);
 
         // Get the text file
-        text = Resource.ResourceManager.GetString("behavior.json");
+        text           = Resource.ResourceManager.GetString("behavior.json");
         behaviorSchema = JsonSerializer.Deserialize<BehaviorSchema>(text, JSONOptions);
     }
 
@@ -103,13 +104,13 @@ public partial class Assets: IDisposable
         if (File.Exists(path))
         {
             // Mark it as a Vector style assets folder
-            AssetsType=AssetsType.Vector;
+            AssetsType = AssetsType.Vector;
 
-            displayWidth = VectorDisplayWidth;
-            displayHeight= VectorDisplayHeight;
+            // Make a note of the size of the LCD
+            DisplaySize = new Size(VectorDisplayWidth, VectorDisplayHeight);
 
             // Get the text for the file
-            var text = System.IO.File.ReadAllText(path);
+            var text = File.ReadAllText(path);
 
             // Get it in a convenient form
             var JSONOptions = new JsonSerializerOptions
@@ -123,14 +124,16 @@ public partial class Assets: IDisposable
             // Construct the cozmoResources patch
             cozmoResourcesPath = Path.Combine(basePath, config.DataPlatformResourcesPath.Substring(1));
 
+            // Load the server's to use
+            LoadServers(Path.Combine(cozmoResourcesPath, "config"));
         }
         else
         {
             // Mark it as a Cozmo style assets folder
             AssetsType=AssetsType.Cozmo;
 
-            displayWidth = CozmoDisplayWidth;
-            displayHeight= CozmoDisplayHeight;
+            // Make a note of the size of the LCD
+            DisplaySize = new Size(CozmoDisplayWidth, CozmoDisplayHeight);
 
             // Construct the cozmoResources patch
             cozmoResourcesPath = Path.Combine(basePath, "assets/cozmo_resources");
@@ -186,6 +189,9 @@ public partial class Assets: IDisposable
 
         // Load the trigger maps
         LoadCladToFileMaps();
+
+        // Load the vision processing
+        LoadVision();
 
         // Load the mood configuration
         LoadMoods        (Path.Combine(cozmoResourcesPath, "config/engine"));

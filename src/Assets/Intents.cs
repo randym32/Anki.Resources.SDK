@@ -93,7 +93,7 @@ public class UserIntentMap
     /// A dictionary whose keys are the keys provided by the application's
     /// intent structure, and maps to the keys used internally.  Optional.
     /// </summary>
-    public Dictionary<string,string> app_substitutions {get; set;}
+    public IReadOnlyDictionary<string,string> app_substitutions {get; set;}
 
     /// <summary>
     /// The intent name returned by the cloud.

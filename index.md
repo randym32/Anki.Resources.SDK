@@ -83,3 +83,5 @@ decoding of the audio files.
 
 Wayne Venables, you set a very high bar with [Anki.Vector.SDK](https://github.com/codaris/Anki.Vector.SDK) 
 I lifted some of your index.md getting started information for here.
+
+[Packages used by this SDK](api/packages.html)

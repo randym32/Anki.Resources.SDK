@@ -16,7 +16,7 @@ partial class AudioAssets
     /// <summary>
     /// A list of the audio plug-ins in the sound processing pipeline
     /// </summary>
-    public IReadOnlyCollection<string> Plugins {get {return (IReadOnlyCollection<string>)plugins; } }
+    public IReadOnlyList<string> Plugins => plugins;
 
     /// <summary>
     /// Loads the plug-in information file

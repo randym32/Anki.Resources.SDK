@@ -86,6 +86,12 @@ partial class Assets
     /// “.json” suffix) for the animation.
     /// </summary>
     Dictionary<string, string> animationTriggerName2GroupName;
+    /// <summary>
+    /// Maps the animation trigger name to animation group filename (without the extension)
+    /// The animation name.  Effectively this is the JSON file (without the
+    /// “.json” suffix) for the animation.
+    /// </summary>
+    public IReadOnlyDictionary<string, string> AnimationTriggerName2GroupName => animationTriggerName2GroupName;
 
     /// <summary>
     /// Provides a list of the animation trigger names.

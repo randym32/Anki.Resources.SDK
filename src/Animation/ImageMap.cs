@@ -9,7 +9,7 @@ namespace Anki.Resources.SDK
 /// <summary>
 /// An image map describes which images and sprite sequences to display.
 /// </summary>
-class ImageMap
+public class ImageMap
 {
     /// <summary>
     /// An array of sprite boxes for showing sprite sequences.
@@ -27,7 +27,7 @@ class ImageMap
 /// <summary>
 /// The name of the image or sprite sequence to display in the sprite box.
 /// </summary>
-class SpriteMapBox
+public class SpriteMapBox
 {
     /// <summary>
     /// The name of the sprite box.
@@ -44,27 +44,18 @@ class SpriteMapBox
 partial class Assets
 {
     /// <summary>
-    /// Maps the trigger name to the image map filename
+    /// Maps the trigger name to the image map filename.
     /// </summary>
     Dictionary<string, string> imageMapTriggerName2Filename = new Dictionary<string, string>();
+    /// <summary>
+    /// Maps the trigger name to the image map filename.
+    /// </summary>
+    public IReadOnlyDictionary<string, string> ImageMapTriggerName2Filename => imageMapTriggerName2Filename;
 
     /// <summary>
     /// The maps the image maps partial file name to the path
     /// </summary>
     Dictionary<string, string> imageMapPathCache;
-
-#if false
-    /// <summary>
-    /// Provides a list of the image map trigger names.
-    /// </summary>
-    IReadOnlyCollection<string> ImageMapTriggerNames
-    {
-        get
-        {
-            return imageMapTriggerName2Filename.Keys;
-        }
-    }
-    #endif
 
 
     /// <summary>
@@ -99,23 +90,5 @@ partial class Assets
             return null;
         return ImageMapPath(partialName);
     }
-
-#if false
-    /// <summary>
-    /// Looks up the path to the image map given the trigger name
-    /// </summary>
-    /// <param name="triggerName">The image map trigger name</param>
-    /// <returns>null on error, otherwise The relative path to the image layout </returns>
-    string ImageMapPathForTrigger(string triggerName)
-    {
-        // Get the full path
-        var path = ImageMapFullPathForTrigger(triggerName);
-        if (null == path)
-            return null;
-
-        // Remove the base path
-        return Util.RemoveBasePath(cozmoResourcesPath, path);
-    }
-#endif
 }
 }

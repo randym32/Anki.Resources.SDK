@@ -9,7 +9,7 @@ namespace Anki.Resources.SDK
 /// <summary>
 /// Schema information about conditions
 /// </summary>
-class ConditionSchema
+public class ConditionSchema
 {
     /// <summary>
     /// The keys that refer to conditions.
@@ -43,6 +43,11 @@ public partial class Assets
     const string k_and = "and";
     const string k_conditionType = "conditionType";
     const string k_emotion = "emotion";
+
+    /// <summary>
+    /// The condition node schema
+    /// </summary>
+    public static readonly ConditionSchema ConditionSchema;
 
 
     /// <summary>
@@ -174,7 +179,7 @@ public partial class Assets
         var desc = Localized(conditionType);
 
         // Look up the parameters and add them i
-        var type2keys = conditionSchema.type2keys;
+        var type2keys = ConditionSchema.type2keys;
         if (type2keys.TryGetValue(conditionType, out var _acceptableKeys))
         {
             // Append the parameters to the condition

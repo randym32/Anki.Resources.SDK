@@ -1,6 +1,5 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using RCM;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,12 +17,12 @@ public partial class CompositeImage
     /// The layout defines layers with rectangular areas where images and
     /// sprite sequences will be drawn.
     /// </summary>
-    internal ImageLayout[] layouts;
+    public readonly ImageLayout[] Layouts;
 
     /// <summary>
     /// An image map describes which images and sprite sequences to display.
     /// </summary>
-    internal ImageMap[] maps;
+    public readonly ImageMap[] Maps;
 
     /// <summary>
     /// Creates the composite image map structure
@@ -37,13 +36,13 @@ public partial class CompositeImage
             {
                 ReadCommentHandling = JsonCommentHandling.Skip,
                 AllowTrailingCommas = true,
-                IgnoreNullValues=true
+                IgnoreNullValues    = true
             };
 
         // Load the layouts file
         // Get the text for the file
         var text = File.ReadAllText(layoutPath);
-        layouts = JsonSerializer.Deserialize<ImageLayout[]>(text, JSONOptions);
+        Layouts = JsonSerializer.Deserialize<ImageLayout[]>(text, JSONOptions);
         
         // Load image map file (optional)
         if (null != mapPath)
@@ -52,7 +51,7 @@ public partial class CompositeImage
             text = File.ReadAllText(mapPath);
 
             // Get it in a convenient form
-            maps = JsonSerializer.Deserialize<ImageMap[]>(text, JSONOptions);
+            Maps = JsonSerializer.Deserialize<ImageMap[]>(text, JSONOptions);
         }
 
         // We would build a cross reference dictionary if was worth it...
@@ -66,7 +65,7 @@ public partial class CompositeImage
     {
         get
         {
-            foreach (var layout in layouts)
+            foreach (var layout in Layouts)
                  yield return layout.layerName;
         }
     }
@@ -80,7 +79,7 @@ public partial class CompositeImage
     public IReadOnlyCollection<SpriteBox> Layout(string layerName)
     {
         // Scan over the layers (it's not worth it build a dictonary)
-        foreach (var layer in layouts)
+        foreach (var layer in Layouts)
             if (layerName == layer.layerName)
                 return layer.spriteBoxLayout;
         return null;
@@ -97,12 +96,12 @@ public partial class CompositeImage
     public Dictionary<string,string> ImageMap(string layerName)
     {
         // Check to see if no maps were defined
-        if (null == maps)
+        if (null == Maps)
             return null;
 
         // Create a dictionary mapping the sprite box name to sprite name
         // First, find the mapping for the layer name
-        foreach (var m in maps)
+        foreach (var m in Maps)
         {
             // Skip irrelevant layers
             if (layerName != m.layerName)

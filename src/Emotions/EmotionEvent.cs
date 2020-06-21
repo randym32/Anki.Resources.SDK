@@ -27,7 +27,7 @@ public class EmotionEvent
     /// <summary>
     /// This is a "time ratio" describing how the value decays.  Optional.
     /// </summary>
-    public DecayGraph RepetitionPenalty {get; set; }
+    public DecayGraph repetitionPenalty {get; set; }
 }
 
 

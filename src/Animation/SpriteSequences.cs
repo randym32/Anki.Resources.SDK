@@ -22,7 +22,8 @@ public class SpriteSequence
     /// <summary>
     /// The format of the sprite sequence filename
     /// </summary>
-    readonly internal string fmt;
+    /// <remarks>You should not use this</remarks>
+    public readonly string FileNameFormat;
 
     /// <summary>
     /// The number of frames in the sequence
@@ -32,7 +33,7 @@ public class SpriteSequence
     /// <summary>
     /// The name of the sprite sequence.
     /// </summary>
-    internal readonly string name;
+    public readonly string Name;
 
 #if false
     /// <param name="length_ms">The duration of the animation (when played)</param>
@@ -51,8 +52,8 @@ public class SpriteSequence
     internal SpriteSequence(string name, string cozmoResourcesPath, string fmt) 
     {
         this.cozmoResourcesPath = cozmoResourcesPath;
-        this.fmt = fmt;
-        this.name= name;
+        this.FileNameFormat = fmt;
+        this.Name           = name;
     }
 
 #if false
@@ -78,7 +79,7 @@ public class SpriteSequence
         // Enumerate over the files
         for (int idx = 0; ; idx++)
         {
-            var path = String.Format(fmt, idx);
+            var path = String.Format(FileNameFormat, idx);
             if (!File.Exists(Path.Combine(cozmoResourcesPath, path)))
                 break;
             // Return the results

@@ -26,8 +26,7 @@
       },
       {
         "files": [
-          "api/index.md",
-          "api/gripes.md"
+          "api/**.md"
         ]
       },
       {

@@ -13,7 +13,7 @@ namespace Anki.Resources.SDK
 /// A screen layout defines rectangular areas on the display where images and
 /// sprite sequences will be drawn.
 /// </summary>
-class ImageLayout
+public class ImageLayout
 {
     /// <summary>
     /// An array of sprite boxes for showing icons and other images.
@@ -48,12 +48,6 @@ class ImageLayout
 public class SpriteBox
 {
     /// <summary>
-    /// The height of the sprite box.
-    /// Unit: pixels
-    /// </summary>
-    public int height {get; set;}
-
-    /// <summary>
     ///  The name of the sprite box.   The animation engine may use this to
     ///  select the procedure(s) in charge managing the layer and sprite boxes.
     ///  If an image map is available for this animation, the sprite sequence
@@ -75,6 +69,13 @@ public class SpriteBox
     /// Unit: pixels
     /// </summary>
     public int width {get; set;}
+
+    /// <summary>
+    /// The height of the sprite box.
+    /// Unit: pixels
+    /// </summary>
+    public int height {get; set;}
+
 
     /// <summary>
     /// The x coordinate of the upper left hand corner of the sprite box.  The
@@ -99,12 +100,16 @@ public class SpriteBox
 partial class Assets
 {
     /// <summary>
-    /// Maps the trigger name to the display layout filename
+    /// Maps the trigger name to the display layout filename.
     /// </summary>
     Dictionary<string, string> imageLayoutTriggerName2Filename= new Dictionary<string, string>();
+    /// <summary>
+    /// Maps the trigger name to the display layout filename.
+    /// </summary>
+    public IReadOnlyDictionary<string, string> ImageLayoutTriggerName2Filename => imageLayoutTriggerName2Filename;
 
     /// <summary>
-    /// The maps the image layouts partial file name to the path
+    /// The maps the image layouts partial file name to the path.
     /// </summary>
     Dictionary<string, string> imageLayoutPathCache;
 

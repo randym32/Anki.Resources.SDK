@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>This is a helper library to read in Cozmo and Vector resource folders, allowing playback of the sounds, and sprite sequences.</Description>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Copyright>2020 Randall Maas</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <AssemblyName>Anki.Resources.SDK</AssemblyName>
@@ -14,12 +14,20 @@
     <PackageProjectUrl>https://github.com/randym32/Anki.Resources.SDK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/randym32/Anki.Resources.SDK</RepositoryUrl>
     <PackageReleaseNotes>This allows reading and playing Vector and Cozmo sounds, and examining the sprites.
-Preserves the case of the trigger names now, added a typed return for the CompositeImage ImageMap</PackageReleaseNotes>
+Preserves the case of the trigger names now, added a typed return for the CompositeImage ImageMap.
+Removed some modules, which will be provided in a separate program.
+Added in the Vision processing modules for OpenCV and TFlite
+Exported some fields and classes (which could become distracting).
+Renamed some fields to better fit with C# naming guidelines; this may impact some programs.
+</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Authors>Randall Maas</Authors>
     <PackageIcon>logo-big.png</PackageIcon>
-    <AssemblyVersion>0.0.3.0</AssemblyVersion>
-    <FileVersion>0.0.3.0</FileVersion>
+    <AssemblyVersion>0.0.4.0</AssemblyVersion>
+    <FileVersion>0.0.4.0</FileVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>Library</OutputType>
+    <UserSecretsId>d4c4db45-81a5-47c2-a9ca-3036be9ace98</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,10 +39,17 @@ Preserves the case of the trigger names now, added a typed return for the Compos
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="docfx.console" Version="2.54.0">
+    <Compile Remove="src\Animation\AnimGroup-analysis.cs" />
+    <Compile Remove="src\Views\PictureBox2.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="docfx.console" Version="2.55.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Emgu.CV" Version="4.3.0.3890" />
+    <PackageReference Include="EMGU.TF.LITE" Version="2.1.0.840" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -83,6 +98,7 @@ Preserves the case of the trigger names now, added a typed return for the Compos
 
   <ItemGroup>
     <Folder Include="src\Speech\" />
+    <Folder Include="src\Views\" />
   </ItemGroup>
 
 </Project>

@@ -3,21 +3,53 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using System.Drawing;
 using RCM;
-using System;
 
 namespace Anki.Resources.SDK
 {
-
-class VisionModeSetting
+/// <summary>
+/// This is used to as part of the vision scheduler configuration.
+/// It specifies the frequency to run a given image processing step, for each
+/// of the vision processing subsystems modes. 1 means "runs every frame,"
+/// 4 every fourth frame, and so on.  
+/// </summary>
+public class VisionModeSetting
 {
+    /// <summary>
+    /// The name of the image processing step.
+    /// </summary>
     public string mode {get;set; }
-    public int low  {get;set; }
-    public int med  {get;set; }
-    public int hide {get;set; }
-    public int standard  {get;set; }
-    public int relativeCost {get;set; }
+
+    /// <summary>
+    /// When in low "mode" run the image processing step every n frames.
+    /// This value must be a power of two.
+    /// </summary>
+    public uint low  {get;set; }
+
+    /// <summary>
+    /// When in medium "mode" run the image processing step every n frames.
+    /// This value must be a power of two.
+    /// </summary>
+    public uint med  {get;set; }
+
+    /// <summary>
+    /// When in high "mode" run the image processing step every n frames.  This
+    /// value must be a power of two.
+    /// </summary>
+    public uint high {get;set; }
+
+    /// <summary>
+    /// When in medium "mode" run the image processing step every n frames.
+    /// This value must be a power of two.
+    /// </summary>
+    public uint standard  {get;set; }
+
+    /// <summary>
+    /// A "heuristic weighting to drive separation of heavy-weight tasks between
+    /// frames where 1 should indicate our lowest cost process e.g. "Markers" is
+    /// ~16x as resource intensive as "CheckingQuality"
+    /// </summary>
+    public uint relativeCost {get;set; }
 }
 
 partial class Assets
@@ -28,23 +60,14 @@ partial class Assets
     Dictionary<string, object> visionConfig;
 
     /// <summary>
-    /// 
+    /// The vision scheduler configuration specifies the frequency to run a
+    /// given image processing step, for each of the vision processing
+    /// subsystems modes.
     /// </summary>
-    readonly Dictionary<string, VisionModeSetting> visionScheduleConfig = new Dictionary<string, VisionModeSetting>();
+    public readonly IReadOnlyDictionary<string, VisionModeSetting> VisionScheduleConfig = new Dictionary<string, VisionModeSetting>();
 
     /// <summary>
-    /// A catalog of the tflite models
-    /// </summary>
-    Dictionary<string,string> tfliteFiles;
-
-    /// <summary>
-    /// A catalog of the openCV classifiers
-    /// </summary>
-    Dictionary<string,string> openCVClassifiers;
-
-
-    /// <summary>
-    /// 
+    /// Loads the vision subsystem configuredion
     /// </summary>
     void LoadVision()
     {
@@ -67,17 +90,15 @@ partial class Assets
             text = File.ReadAllText(vpath);
             var tmp  = JsonSerializer.Deserialize<Dictionary<string,VisionModeSetting[]>>(text, JSONOptions);
             // Rearrange so that we can look up by item
+            var config = (Dictionary<string, VisionModeSetting>) VisionScheduleConfig;
             foreach (var x in tmp["VisionModeSettings"])
             {
-                visionScheduleConfig[x.mode] = x;
+                config[x.mode] = x;
             }
         }
 
-        // Scoop up the tflite files
-        tfliteFiles = Util.BuildNameToRelativePathXref(Path.Combine(cozmoResourcesPath,"config/engine/vision", "tflite"));
-        openCVClassifiers     = Util.BuildNameToRelativePathXref(Path.Combine(cozmoResourcesPath,"config/engine/vision", "yaml"));
-        // Load labels
-        //
+        // Load the information about the classifiers
+        LoadClassifierInfo();
     }
 }
 }

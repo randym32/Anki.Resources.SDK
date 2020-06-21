@@ -31,9 +31,13 @@ public partial class Assets
     /// The allowed value range for each dimension of the emotion 
     /// </summary>
     readonly Dictionary<string, MinMax> emotionRanges= new Dictionary<string, MinMax>();
+    /// <summary>
+    /// The allowed value range for each dimension of the emotion 
+    /// </summary>
+    public IReadOnlyDictionary<string, MinMax> EmotionRanges => emotionRanges;
 
     /// <summary>
-    /// The built in table of simple moods
+    /// The built in table of simple moods.
     /// </summary>
     readonly Dictionary<string,string> simpleMoods= new Dictionary<string,string>()
     {
@@ -43,6 +47,10 @@ public partial class Assets
         {"LowStim",""},
         {"MedStim",""},
     };
+    /// <summary>
+    /// The built in table of simple moods.
+    /// </summary>
+    public IReadOnlyDictionary<string,string> SimpleMoods=>simpleMoods;
 
 
     /// <summary>

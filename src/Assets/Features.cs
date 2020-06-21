@@ -19,10 +19,10 @@ public partial class Assets
     /// <summary>
     /// Provides a table of the feature flags and whether it is enabled or disabled
     /// </summary>
-    public IReadOnlyDictionary<string, bool> Features {get {return featureToggle; } }
+    public IReadOnlyDictionary<string, bool> Features => featureToggle;
 
     /// <summary>
-    /// Loads the information from the animation manifest file
+    /// Loads the information from the features file
     /// </summary>
     /// <param name="configPath">Path to the config folder</param>
     void LoadFeatures(string configPath)
