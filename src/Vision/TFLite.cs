@@ -33,6 +33,9 @@ public class Classifier_TFLite : IProcessImage, IDisposable
     /// <summary>
     /// The input to the model.
     /// </summary>
+    /// <value>
+    /// The input to the model.
+    /// </value>
     public Tensor InputTensor { get; private set; }
 
 
@@ -61,6 +64,9 @@ public class Classifier_TFLite : IProcessImage, IDisposable
     /// <summary>
     /// The output from the model.
     /// </summary>
+    /// <value>
+    /// The output from the model.
+    /// </value>
     public Tensor OutputTensor { get; private set; }
 
     /// <summary>

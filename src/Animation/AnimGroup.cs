@@ -21,34 +21,58 @@ public class AnimationGroupItem
     /// The minimum duration, after this animation has completed, before it can
     /// be used again.  Typically 0.0
     /// </summary>
+    /// <value>
+    /// The minimum duration, after this animation has completed, before it can
+    /// be used again.  Typically 0.0
+    /// </value>
     public float CooldownTime_Sec {get; set;}
 
     /// <summary>
     /// The head is to move to random angle greater (or equal) to this.
     /// Only used if UseHeadAngle is true.
     /// </summary>
+    /// <value>
+    /// The head is to move to random angle greater (or equal) to this.
+    /// Only used if UseHeadAngle is true.
+    /// </value>
     public float HeadAngleMin_Deg {get; set;}
 
     /// <summary>
     /// The head is to move to random angle les than (or equal) to this.
     /// Only used if UseHeadAngle is true.
     /// </summary>
+    /// <value>
+    /// The head is to move to random angle les than (or equal) to this.
+    /// Only used if UseHeadAngle is true.
+    /// </value>
     public float HeadAngleMax_Deg {get; set;}
 
     /// <summary>
-    /// The name of a simple moode or “Default”
+    /// The name of a simple moode or “Default”.
     /// </summary>
+    /// <value>
+    /// The name of a simple moode or “Default”.
+    /// </value>
     public string Mood {get; set;}
 
     /// <summary>
     /// The name of the animation clip to play.  This clip is defined within one
     /// of the animation binary or JSON files.
     /// </summary>
+    /// <value>
+    /// The name of the animation clip to play.  This clip is defined within one
+    /// of the animation binary or JSON files.
+    /// </value>
     public string Name {get; set;}
 
     /// <summary>
-    /// Optional, default is false
+    /// True if the given head angle range should be employed.
+    /// Optional, default is false.
     /// </summary>
+    /// <value>
+    /// True if the given head angle range should be employed.
+    /// Optional, default is false.
+    /// </value>
     public bool UseHeadAngle {get; set;}
 
     /// <summary>
@@ -65,6 +89,9 @@ class AnimationGroup
     /// <summary>
     /// An array of animations to select from to play.
     /// </summary>
+    /// <value>
+    /// An array of animations to select from to play.
+    /// </value>
     public IReadOnlyCollection<AnimationGroupItem> Animations {get;set; }
 }
 
@@ -88,14 +115,20 @@ partial class Assets
     Dictionary<string, string> animationTriggerName2GroupName;
     /// <summary>
     /// Maps the animation trigger name to animation group filename (without the extension)
-    /// The animation name.  Effectively this is the JSON file (without the
+    /// The animation name is effectively the JSON file (without the
     /// “.json” suffix) for the animation.
     /// </summary>
+    /// <value>
+    /// Maps the animation trigger name to animation group filename (without the extension)
+    /// </value>
     public IReadOnlyDictionary<string, string> AnimationTriggerName2GroupName => animationTriggerName2GroupName;
 
     /// <summary>
     /// Provides a list of the animation trigger names.
     /// </summary>
+    /// <value>
+    /// Provides a list of the animation trigger names.
+    /// </value>
     public IReadOnlyCollection<string> AnimationTriggerNames
     {
         get

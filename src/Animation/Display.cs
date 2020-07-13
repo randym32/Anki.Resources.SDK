@@ -1,17 +1,17 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using Anki.Resources.SDK;
 using System.Drawing;
-using System.IO;
-using System.Text;
 
 namespace Anki.Resources.SDK
 {
 public partial class Assets
 {
     /// <summary>
-    /// The size of the LCD
+    /// The size of the LCD.
     /// </summary>
+    /// <value>
+    /// The size of the LCD.
+    /// </value>
     public readonly Size DisplaySize;
 
     /// <summary>

@@ -17,23 +17,32 @@ public class MinMax
     /// <summary>
     /// The minimum allowed value for the emotion type.
     /// </summary>
+    /// <value>
+    /// The minimum allowed value for the emotion type.
+    /// </value>
     public float min {get; internal set; }  =-1.0f;
 
     /// <summary>
     /// The maximum allowed value for the emotion type.
     /// </summary>
+    /// <value>
+    /// The maximum allowed value for the emotion type.
+    /// </value>
     public float max {get; internal set; } =1.0f;
 }
 
 public partial class Assets
 {
     /// <summary>
-    /// The allowed value range for each dimension of the emotion 
+    /// The allowed value range for each dimension of the emotion.
     /// </summary>
     readonly Dictionary<string, MinMax> emotionRanges= new Dictionary<string, MinMax>();
     /// <summary>
-    /// The allowed value range for each dimension of the emotion 
+    /// The allowed value range for each dimension of the emotion.
     /// </summary>
+    /// <value>
+    /// The allowed value range for each dimension of the emotion.
+    /// </value>
     public IReadOnlyDictionary<string, MinMax> EmotionRanges => emotionRanges;
 
     /// <summary>
@@ -50,6 +59,9 @@ public partial class Assets
     /// <summary>
     /// The built in table of simple moods.
     /// </summary>
+    /// <value>
+    /// The built in table of simple moods.
+    /// </value>
     public IReadOnlyDictionary<string,string> SimpleMoods=>simpleMoods;
 
 
@@ -98,8 +110,11 @@ public partial class Assets
     }
 
     /// <summary>
-    /// The table mapping each dimension of emotion to its allow range of values
+    /// The table mapping each dimension of emotion to its allow range of values.
     /// </summary>
+    /// <value>
+    /// The table mapping each dimension of emotion to its allow range of values.
+    /// </value>
     public IReadOnlyDictionary<string, MinMax> EmotionValueRanges => emotionRanges;
 }
 }

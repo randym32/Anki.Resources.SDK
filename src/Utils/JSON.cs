@@ -33,14 +33,14 @@ public static partial class Util
     /// <summary>
     /// Convert the JSON to a dictionary to an array of strings
     /// </summary>
-    /// <param name="a">The dictionary of JSON elements</param>
+    /// <param name="jsonDictionary">The dictionary of JSON elements</param>
     /// <returns>The dictionary</returns>
-    static public Dictionary<string, object> ToDict(Dictionary<string, object> a)
+    static public Dictionary<string, object> ToDict(Dictionary<string, object> jsonDictionary)
     {
-        if (null == a)
+        if (null == jsonDictionary)
             return null;
         var ret = new Dictionary<string, object>();
-        foreach (var item in a)
+        foreach (var item in jsonDictionary)
         {
             if (null != item.Value)
                 ret[item.Key] = JsonToNormal((JsonElement)item.Value);
@@ -51,12 +51,12 @@ public static partial class Util
     /// <summary>
     /// Convert the JSON element to an a dictionary
     /// </summary>
-    /// <param name="a">The JSON element</param>
+    /// <param name="jsonDictionary">The JSON element</param>
     /// <returns>The dictionary</returns>
-    static public Dictionary<string, object> ToDict(JsonElement a)
+    static public Dictionary<string, object> ToDict(JsonElement jsonDictionary)
     {
         var ret = new Dictionary<string, object>();
-        foreach (var item in a.EnumerateObject())
+        foreach (var item in jsonDictionary.EnumerateObject())
         {
             ret[item.Name] = JsonToNormal(item.Value);
         }

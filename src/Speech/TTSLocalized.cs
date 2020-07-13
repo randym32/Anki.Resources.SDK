@@ -45,34 +45,105 @@ namespace Anki.Resources.SDK
 {
 partial class Assets
 {
-#if false
     /// <summary>
-    /// A cache to hold the translation group
+    /// A cache to hold the binary animation files
     /// </summary>
-    readonly MemoryCache localizedTTSCache = new MemoryCache(new MemoryCacheOptions{SizeLimit = 65536});
-#endif
+    readonly Dictionary<string, WeakReference> localizedTTSCache = new Dictionary<string, WeakReference>();
 
-    // Todo: a table of the translations
+    /// <summary>
+    /// A collection of locales
+    /// </summary>
+    List<string> _Locales;
+
+    /// <summary>
+    /// A collection of locales
+    /// </summary>
+    List<string> _LocalizationFiles;
+
+    /// <summary>
+    /// Lists the locales that have localizations
+    /// </summary>
+    /// <returns>A collection of locales; the collection may be empty</returns>
+    public IReadOnlyCollection<string> Locales
+    {
+        get
+        {
+            if (null != _Locales)
+                return _Locales;
+            var x = new List<string>();
+            // Get the path to the localized strings
+            var path = Path.Combine(cozmoResourcesPath, "assets/LocalizedStrings");
+
+            // Enumerate the folders (striping the path), which are the locales
+            if (Directory.Exists(path))
+                foreach (var d in Directory.GetDirectories(path))
+                    x.Add(Path.GetFileName(d));
+            return _Locales = x;
+        }
+    }
+
+
+    /// <summary>
+    /// Lists the locales that have localizations
+    /// </summary>
+    /// <returns>A  collection of localization resource names; the collection
+    /// may be empty</returns>
+    public IReadOnlyCollection<string> LocalizationFiles
+    {
+        get
+        {
+            if (null != _LocalizationFiles)
+                return _LocalizationFiles;
+            // Get the path to the localized strings, using the always-present
+            // US english folder
+            var path = Path.Combine(cozmoResourcesPath, "assets/LocalizedStrings/en-US");
+            var x = new List<string>();
+
+            // Enumerate the folders (striping the path), which are the locales
+            if (Directory.Exists(path))
+                foreach (var f in Directory.GetFiles(path, "*.json"))
+                    x.Add(Path.GetFileName(f));
+            return _LocalizationFiles = x;
+        }
+    }
+
+
+    /// <summary>
+    /// Looks up the localization entry in the cache
+    /// </summary>
+    /// <param name="localeResourceName">The locale and resource name</param>
+    /// <returns>null on error, otherwise an LocalizedTextSubstitution object
+    /// </returns>
+    TextSubstitution LocalizationCache(string localeResourceName)
+    {
+        // Is there an entry in the cache for this?
+        if (!localizedTTSCache.TryGetValue(localeResourceName, out var wref))
+            return null;
+        return (TextSubstitution) wref.Target;
+    }
+
 
     /// <summary>
     /// Opens up the localization tables and text substitution
     /// </summary>
-    /// <param name="resourceName">The name of the resouce file, with JSON suffix:
+    /// <param name="resourceName">The name of the resource file, with JSON suffix:
     /// e.g. BehaviorStrings.json, BlackJackStrings.json, FaceEnrollmentStrings.json </param>
-    /// <param name="locale">de-DE, en-US, fr-FR, optional default is en-US</param>
+    /// <param name="locale">de-DE, en-US, fr-FR, ja-JP (optional).  The default is en-US</param>
     /// <returns>null on error, otherwise an object that can localize the strings</returns>
     public TextSubstitution LocalizedTextSubstitution(string resourceName, string locale="en-US")
     {
         var LRN = Path.Combine(locale, resourceName);
-#if false
         // See if the localized strings are already loaded
-        if (localizedTTSCache.TryGetValue(LRN, out var _cret))
-            return (TextSubstitution)_cret;
-#endif
+        var _cret = LocalizationCache(LRN);
+        if (null != _cret)
+            return _cret;
 
-        var path = Path.Combine(cozmoResourcesPath, "LocalizedStrings", LRN);
+        // Get the path to the localized strings
+        var path = Path.Combine(cozmoResourcesPath, "assets/LocalizedStrings", LRN);
+        if (!File.Exists(path))
+            return null;
 
-        // Get the text for the file
+        // Get the text for the translations file
         var text = File.ReadAllText(path);
 
         // Get it in a convenient form
@@ -91,10 +162,10 @@ partial class Assets
         {
             var newRegex = "";
             // Change the patterns to be the local machine
-            foreach (var pattern in (string[])fmts)
+            foreach (var pattern in (object[])fmts)
             {
                 // replace "\\\\" with "\\"
-                newRegex += pattern.Replace("\\\\", "\\", StringComparison.InvariantCultureIgnoreCase)+"|";
+                newRegex += ((string) pattern).Replace("\\\\", "\\", StringComparison.InvariantCultureIgnoreCase)+"|";
             }
 
             // Remove the last or
@@ -117,10 +188,8 @@ partial class Assets
         // Create an object to handle the text substitutiosn
         var ret = new TextSubstitution(table, subst);
 
-#if false
-        // cache it
-        localizedTTSCache.Set(LRN, ret);
-#endif
+        // Add an item to the cache
+        localizedTTSCache[LRN] = new WeakReference(ret);
         return ret;
     }
 }

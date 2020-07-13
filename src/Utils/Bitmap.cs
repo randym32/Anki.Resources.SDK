@@ -24,7 +24,7 @@ public partial class Util
     /// <summary>
     /// Open a bitmap image at the given path
     /// </summary>
-    /// <param name="imagePath"></param>
+    /// <param name="imagePath">The path to the image file.</param>
     /// <returns>The bitmap image</returns>
     public static Bitmap ImageOpen(string imagePath)
     {

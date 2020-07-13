@@ -20,21 +20,33 @@ public class ClassifierInfo
     /// <summary>
 	/// The name of the classifier
     /// </summary>
+    /// <value>
+	/// The name of the classifier
+    /// </value>
 	public string Name {get;internal set; }
 
     /// <summary>
 	/// The type of classifier model -- e.g. OpenCV, TFLite, or Offboard
     /// </summary>
+    /// <value>
+	/// The type of classifier model -- e.g. OpenCV, TFLite, or Offboard
+    /// </value>
 	public readonly string Type;
 
     /// <summary>
-	/// The full path to the classifier file
+	/// The full path to the classifier file.
     /// </summary>
+    /// <value>
+	/// The full path to the classifier file.
+    /// </value>
 	public readonly string FullPath;
 
     /// <summary>
-	/// The path (relative to the cozmo resources) to the model file
+	/// The path (relative to the cozmo resources) to the model file.
     /// </summary>
+    /// <value>
+	/// The path (relative to the cozmo resources) to the model file.
+    /// </value>
     internal string FilePath;
 
     /// <summary>
@@ -55,6 +67,9 @@ public class ClassifierInfo
 	/// The parameters for interpreting the model.
 	/// As there is a variety of models the kinds of parameters can vary a lot
     /// </summary>	
+    /// <value>
+	/// The parameters for interpreting the model.
+    /// </value>
 	public IReadOnlyDictionary<string, object> Parameters {get; internal set; }
 
     /// <summary>
@@ -82,6 +97,9 @@ public class ClassifierInfo
     /// The labels for the potential outputs.  This is shared with the
     /// classifier as well.
     /// </summary>
+    /// <values>
+    /// The labels for the potential outputs.
+    /// </values>
     public IReadOnlyList<string> Labels
     { get {
         if (null != labels|| null == LabelsPath)
@@ -133,14 +151,12 @@ public class ClassifierInfo
             // Use a default if there are no parameters at all in the config file.
             // This is used with the mobilenet that is included, but not configured
             var Parms = Parameters ?? TFLite_defaults;
-            object inputName=null, outputName=null;
-            object inputScale=1.0f, inputShift=0.0f;
-            Parms.TryGetValue("inputLayerName"  , out inputName);
-            Parms.TryGetValue("outputLayerNames", out outputName);
+            Parms.TryGetValue("inputLayerName"  , out var inputName);
+            Parms.TryGetValue("outputLayerNames", out var outputName);
             if (!Parms.TryGetValue("numGridRows", out var numGridRows)) numGridRows=1;
             if (!Parms.TryGetValue("numGridCols", out var numGridCols)) numGridCols=1;
-            Parms.TryGetValue("inputScale"      , out inputScale);
-            Parms.TryGetValue("inputShift"      , out inputShift);
+            if (!Parms.TryGetValue("inputScale" , out var inputScale)) inputScale=1.0f;
+            if (!Parms.TryGetValue("inputShift" , out var inputShift)) inputShift=0.0f;
             // The JSON can be interpreted with a lot of different potential
             // types... clean that up
             if (inputScale is double d)
@@ -190,6 +206,10 @@ partial class Assets
     /// A table of the classifiers (and detectors) included or configured in
     /// the resources.
     /// </summary>
+    /// <value>
+    /// A table of the classifiers (and detectors) included or configured in
+    /// the resources.
+    /// </value>
     public IReadOnlyDictionary<string,ClassifierInfo> Classifiers {get; internal set; }
 
     /// <summary>

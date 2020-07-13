@@ -15,26 +15,142 @@ class BehaviorSchema:ConditionSchema
     /// <summary>
     /// The keys that refer to other behaviors (via a behavior ID)
     /// </summary>
+    /// <value>The names of fields in a behavior configuration</value>
     public IReadOnlyList<string> behaviorRefKeys {get;set; }
 }
 
-#if false
 /// <summary>
-/// A mode in the behavior tree
+/// A node in the behavior tree.   This node can have conditions that trigger
+/// it, and behaviours (if the conditions are satisfied) that it carries out.
 /// </summary>
-class BehaviorNode
+public class BehaviorNode
 {
     /// <summary>
-    /// The name of behavior node
+    ///   This is used to
+    /// allow other behavior tree nodes (and top level behaviors) to refer to
+    /// it.
     /// </summary>
-	string behaviorID;
+    /// <value>The name (or identifier) of a behavior tree node.</value>
+	public string behaviorID
+    {
+        get { return (string)fields["behaviorID"]; }
+    }
+
     /// <summary>
-    /// The class of the behavior
+    /// The class of the behavior.  This is used by Vector behavior engine to
+    /// link to the software that implements the functions/actiosn of the behavior.
     /// </summary>
-	string behaviorClass;
-	Dictionary<string,object> fields;
+    /// <value>The class name of the behavior.</value>
+    public string behaviorClass
+    {
+        get { return (string)fields["behaviorClass"]; }
+    }
+
+    /// <summary>
+    /// The fields and values used to configure this behaviour node
+    /// </summary>
+	readonly IReadOnlyDictionary<string,object> fields;
+
+    /// <summary>
+    /// Constructs a behavior node
+    /// </summary>
+    /// <param name="fields">A table of the key-value pairs of parameters</param>
+    internal BehaviorNode(IReadOnlyDictionary<string, object> fields)
+    {
+        this.fields = fields;
+    }
 }
-#endif
+
+
+/// <summary>
+/// This is a container of the behavior tree nodes in the behavior tree
+/// </summary>
+public class BehaviorTree
+{
+    /// <summary>
+    /// The table of behavior nodes, mapping an id to the behavior node.
+    /// </summary>
+    readonly IReadOnlyDictionary<string, BehaviorNode> behaviorNodes;
+
+    /// <summary>
+    /// Constructor for the container of behavior tree nodes
+    /// </summary>
+    /// <param name="behaviorNodes">The table of behavior nodes, mapping an id to the behavior node.</param>
+    internal BehaviorTree(IReadOnlyDictionary<string, BehaviorNode> behaviorNodes)
+    {
+        this.behaviorNodes = behaviorNodes;
+    }
+
+    /// <summary>
+    /// Constructor for the container of behavior tree nodes
+    /// </summary>
+    /// <param name="behaviorsPath">The path to the behavior tree</param>
+    internal BehaviorTree(string behaviorsPath)
+    {
+        // Load all of the behavior nodes, and sort out the tree
+        // It's just easier rather than trying to on demand load them
+
+        // The JSON parsing options
+        var JSONOptions = new JsonSerializerOptions
+        {
+            ReadCommentHandling = JsonCommentHandling.Skip,
+            AllowTrailingCommas = true,
+            IgnoreNullValues     = true
+        };
+
+        // Scan over the behavior tree path and load all of the json files
+        var files = Directory.EnumerateFiles(behaviorsPath, "*.json", SearchOption.AllDirectories);
+        var _behaviorNodes = new Dictionary<string, BehaviorNode>();
+        foreach (string currentFile in files)
+        {
+            // Get the text file
+            var text = File.ReadAllText(currentFile);
+
+            // Get the dictionary
+            var d = Util.ToDict(JsonSerializer.Deserialize<Dictionary<string, object>>(text, JSONOptions));
+
+            // Store in tree
+            var node = new BehaviorNode(d);
+            _behaviorNodes[node.behaviorID] = node;
+        }
+        this.behaviorNodes = _behaviorNodes;
+    }
+
+
+    /// <summary>
+    /// Returns the ids for all of the behavior nodes in the behavior tree.
+    /// Condition nodes are returned here.
+    /// </summary>
+    /// <value>An enumeration of the ids (keys) for each of behavior nodes in
+    /// the behavior tree.</value>
+    public IEnumerable<string> Ids => behaviorNodes.Keys;
+
+    /// <summary>
+    /// Returns the ids for all of the behavior nodes in the behavior tree.
+    /// Condition nodes are returned here.
+    /// </summary>
+    /// <value>An enumeration of the ids (keys) for each of behavior nodes in
+    /// the behavior tree.</value>
+    public IEnumerable<string> Keys => behaviorNodes.Keys;
+
+
+    /// <summary>
+    /// Look up the behavior node for the id
+    /// </summary>
+    /// <param name="key">The ID for the behavior node</param>
+    /// <returns>null on error, otherwise the node associated with the ID</returns>
+	public BehaviorNode this[string key]
+    {
+        get
+        {
+            // See if it is already known
+            // /All/ of the nodes are loaded at the start since their id doesn't
+            // always match the file name
+            behaviorNodes.TryGetValue(key, out var node);
+            return node;
+        }
+    }
+}
 
 partial class Assets
 {
@@ -44,13 +160,19 @@ partial class Assets
     static readonly BehaviorSchema behaviorSchema;
 
     /// <summary>
-    /// The Weather
+    /// The Weather behavior.
     /// </summary>
+    /// <value>
+    /// The Weather behavior
+    /// </value>
     public Weather Weather     {get;internal set;}
 
     /// <summary>
-    /// The blackjack game
+    /// The blackjack game behavior.
     /// </summary>
+    /// <value>
+    /// The blackjack game behavior.
+    /// </value>
     public BlackJack BlackJack {get;internal set;}
 
 #if false
@@ -67,16 +189,34 @@ partial class Assets
     Dictionary<string, Dictionary<string, string>> behaviorTreeTopo = 
         new Dictionary<string, Dictionary<string, string>>();
 #endif
-		
-    /// <summary>
-    /// </summary>
-	readonly Dictionary<string,Dictionary<string,object>> behaviorNodes = new Dictionary<string,Dictionary<string,object>>();
 
     /// <summary>
-    /// 
+    /// A table mapping a behavior to a behavior node id
     /// </summary>
-    /// <param name="configPath"></param>
-    void LoadBehaviors(string configPath)
+	IReadOnlyDictionary<string, string> behavior2BehaviorNodeId;
+
+    /// <summary>
+    /// The container of the behavior tree nodes
+    /// </summary>
+    BehaviorTree behaviorTree;
+
+    /// <summary>
+    /// Load the behavior tree for Cozmo
+    /// </summary>
+    /// <param name="configPath">The path to Cozmo's behavior system</param>
+    void LoadCozmoBehaviors(string configPath)
+    {
+        // Load the activities [todo]
+        // Load the reactions[todo]
+        // Load the behavior trees
+        behaviorTree = new BehaviorTree(Path.Combine(configPath, "behaviors"));
+    }
+
+    /// <summary>
+    /// Load the behavior tree for Vector
+    /// </summary>
+    /// <param name="configPath">The path to Vector's behavior system</param>
+    void LoadVectorBehaviors(string configPath)
     {
         // First the behavior coordinators
         // Load the weather
@@ -91,49 +231,52 @@ partial class Assets
         // Get the text for the file
         var text = File.ReadAllText(path);
 
-        // Load all of the behavior nodes, and sort out the tree
-        // It's just easier rather than trying to on demand load them
         // The JSON parsing options
         var JSONOptions = new JsonSerializerOptions
             {
                 ReadCommentHandling = JsonCommentHandling.Skip,
                 AllowTrailingCommas = true,
-                IgnoreNullValues=true
+                IgnoreNullValues    = true
             };
-        var behaviorsPath = Path.Combine(configPath,"behaviors");
-        var files = Directory.EnumerateFiles(behaviorsPath, "*.json", SearchOption.AllDirectories);
-        foreach (string currentFile in files)
-        {
-            // Get the text file
-            text = File.ReadAllText(currentFile);
-            // Get the dictionary
-            var d = Util.ToDict(JsonSerializer.Deserialize<Dictionary<string,object>>(text, JSONOptions));
+        // Get the dictionary mapping the main behavior to the behavior node id
+        behavior2BehaviorNodeId = JsonSerializer.Deserialize<Dictionary<string, string>>(text, JSONOptions);
 
-            // Store in tree
-            behaviorNodes[(string) d["behaviorID"]] = d;
+
+        // Load the behavior trees
+        behaviorTree = new BehaviorTree(Path.Combine(configPath, "behaviors"));
+    }
+
+
+    /// <summary>
+    /// Provides the container of behavior tree nodes.
+    /// </summary>
+    /// <value>The behavior tree and its nodes</value>
+    public BehaviorTree BehaviorTree
+    {
+        get { return behaviorTree; }
+    }
+
+    /// <summary>
+    /// Returns a mapping of a high level behavior name to the id node at the
+    /// root of that behavior tree.
+    /// </summary>
+    /// <value>A mapping of a high-level behavior name to an identifier of a
+    /// node within the behavior tree.</value>
+    /// <remarks>
+    /// The following are built-in to the Vector software and are not
+    /// configured:
+    ///  * PR demo
+    ///  * factory behavior
+    ///  * acoustic testing behavior
+    /// </remarks>
+    public IReadOnlyDictionary<string, string> BehaviorRootToNodeId
+    {
+        get
+        {
+            return behavior2BehaviorNodeId;
         }
     }
-	
-#if false
-    /// <summary>
-    /// Look up the behavior node for the id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-	BehaviorNode BehaviorNode(string id)
-	{
-		// See if it is already known
-		if (behaviorNodes.TryGetValue(id, out var node))
-			return node;
-		
-		// Load all files?
-		// Try finding one with the right name?
 
-		// Otherwise, look stuff up
-		behaviorNodes[id] = node;
-		return node;
-	}
-#endif
 }
 
 }

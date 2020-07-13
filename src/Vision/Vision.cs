@@ -18,30 +18,49 @@ public class VisionModeSetting
     /// <summary>
     /// The name of the image processing step.
     /// </summary>
+    /// <value>
+    /// The name of the image processing step.
+    /// </value>
     public string mode {get;set; }
 
     /// <summary>
     /// When in low "mode" run the image processing step every n frames.
     /// This value must be a power of two.
     /// </summary>
+    /// <value>
+    /// When in low "mode" run the image processing step every n frames.
+    /// This value must be a power of two.
+    /// </value>
     public uint low  {get;set; }
 
     /// <summary>
     /// When in medium "mode" run the image processing step every n frames.
     /// This value must be a power of two.
     /// </summary>
+    /// <value>
+    /// When in medium "mode" run the image processing step every n frames.
+    /// This value must be a power of two.
+    /// </value>
     public uint med  {get;set; }
 
     /// <summary>
     /// When in high "mode" run the image processing step every n frames.  This
     /// value must be a power of two.
     /// </summary>
+    /// <value>
+    /// When in high "mode" run the image processing step every n frames.  This
+    /// value must be a power of two.
+    /// </value>
     public uint high {get;set; }
 
     /// <summary>
     /// When in medium "mode" run the image processing step every n frames.
     /// This value must be a power of two.
     /// </summary>
+    /// <value>
+    /// When in medium "mode" run the image processing step every n frames.
+    /// This value must be a power of two.
+    /// </value>
     public uint standard  {get;set; }
 
     /// <summary>
@@ -49,6 +68,7 @@ public class VisionModeSetting
     /// frames where 1 should indicate our lowest cost process e.g. "Markers" is
     /// ~16x as resource intensive as "CheckingQuality"
     /// </summary>
+    /// <value>Heurestic weight</value>
     public uint relativeCost {get;set; }
 }
 
@@ -64,6 +84,11 @@ partial class Assets
     /// given image processing step, for each of the vision processing
     /// subsystems modes.
     /// </summary>
+    /// <value>
+    /// The vision scheduler configuration specifies the frequency to run a
+    /// given image processing step, for each of the vision processing
+    /// subsystems modes.
+    /// </value>
     public readonly IReadOnlyDictionary<string, VisionModeSetting> VisionScheduleConfig = new Dictionary<string, VisionModeSetting>();
 
     /// <summary>

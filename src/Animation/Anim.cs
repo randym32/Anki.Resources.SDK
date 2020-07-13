@@ -95,8 +95,11 @@ partial class Assets
     }
 
     /// <summary>
-    /// Provides a list of the animation names
+    /// Provides a list of the animation names.
     /// </summary>
+    /// <value>
+    /// Provides a list of the animation names.
+    /// </value>
     public IReadOnlyCollection<string> AnimationNames
     {
         get
@@ -117,6 +120,9 @@ partial class Assets
     /// <summary>
     /// Tracks which animation clips are defined in multiple files.
     /// </summary>
+    /// <value>
+    /// Tracks which animation clips are defined in multiple files.
+    /// </value>
     public IReadOnlyDictionary<string, string> AnimMultiplyDefined => animMultiplyDefined ;
 
     /// <summary>
@@ -282,7 +288,7 @@ partial class Assets
             // Make a note that we scanned the file
             animFileScanned[Path.GetFileNameWithoutExtension(filePath)]="";
 
-            // Interpret the binary file
+            // Interpret the binary file as either a Vector or Cozmo schema
             if (AssetsType.Vector == AssetsType)
             {
                 animClips = Anki.VectorAnim.AnimClips.GetRootAsAnimClips(new ByteBuffer(b));
@@ -306,6 +312,7 @@ partial class Assets
         if (".JSON" == ext)
         {
             // Try the JSON file
+            // TODO: future
         }
 
         // Try the sprite sequence

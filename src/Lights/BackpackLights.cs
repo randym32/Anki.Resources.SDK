@@ -110,8 +110,11 @@ partial class Assets
     #endregion
 
     /// <summary>
-    /// Provides a list of the backpack light animation  trigger names.
+    /// Provides a list of the backpack light animation trigger names.
     /// </summary>
+    /// <value>
+    /// Provides a list of the backpack light animation trigger names.
+    /// </value>
     public IReadOnlyCollection<string> BackpackLightsTriggerNames
     {
         get

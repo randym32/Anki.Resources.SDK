@@ -15,8 +15,11 @@ public partial class Util
     static string _assemblyDirectory;
 
     /// <summary>
-    /// The path of the executing assembly
+    /// The path of the executing assembly.
     /// </summary>
+    /// <value>
+    /// The path of the executing assembly.
+    /// </value>
     /// <remarks>
     /// https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
     /// </remarks>

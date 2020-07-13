@@ -29,12 +29,25 @@ To get started on Mac and Linux, you can download .NET Core 3.0.
 * [Download .NET Core 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
 To play audio you will need to add the following packages to your project:
-* [NAudio](https://www.nuget.org/packages/NAudio/)
-* [NVorbis](https://www.nuget.org/packages/NVorbis/)
-* [NAudio.Vorbis](https://www.nuget.org/packages/NAudio.Vorbis/)
+* [NAudio](https://www.nuget.org/packages/NAudio/), Used for sound playback of decoded audio
+* [NVorbis](https://www.nuget.org/packages/NVorbis/), Used to decode Vorbis audio
+* [NAudio.Vorbis](https://www.nuget.org/packages/NAudio.Vorbis/), Used to complete the bridging of Vorbis to the audio playback.
 
 To play with the sprites you will need to add the following packages to your project:
 * [System.Drawing.Common](https://www.nuget.org/packages/System.Drawing.Common/)
+
+To work with the vision detects & classifiers you will need to add the following
+packages to your project:
+* [EMGU.CV](https://www.nuget.org/packages/Emgu.CV), This provides OpenCV
+	resources to C#; it is is used by the vision classifiers.
+* [EMGU.CV.runtime.windows](https://www.nuget.org/packages/Emgu.CV.runtime.windows),
+	This provides the Windows-specific openCV binaries; if you use another
+	operating system, you'll want to use a package for that OS.
+* [EMGU.TF.Lite](https://www.nuget.org/packages/Emgu.TF.Lite), This provides
+    TensorFlow Lite resources to C#.  This is used by the vision classifiers.
+* [EMGU.TF.Lite.runtime.windows](https://www.nuget.org/packages/Emgu.TF.Lite.runtime.windows),
+	This provides the Windows-specific TensorFlow Lite binaries; if you use another
+	operating system, you'll want to use a package for that OS.
 
 ### Download
 * [Github](https://github.com/randym32/Anki.Resources.SDK)

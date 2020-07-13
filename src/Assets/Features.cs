@@ -17,8 +17,11 @@ public partial class Assets
     readonly Dictionary<string, bool> featureToggle = new Dictionary<string, bool>();
 
     /// <summary>
-    /// Provides a table of the feature flags and whether it is enabled or disabled
+    /// Provides a table of the feature flags and whether it is enabled or disabled.
     /// </summary>
+    /// <value>
+    /// Provides a table of the feature flags and whether it is enabled or disabled.
+    /// </value>
     public IReadOnlyDictionary<string, bool> Features => featureToggle;
 
     /// <summary>

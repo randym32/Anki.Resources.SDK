@@ -75,8 +75,11 @@ public partial class Assets: IDisposable
 
 
     /// <summary>
-    /// The type of assets folder
+    /// The type of assets folder.
     /// </summary>
+    /// <value>
+    /// The type of assets folder.
+    /// </value>
     public readonly AssetsType AssetsType;
 
     /// <summary>
@@ -200,7 +203,12 @@ public partial class Assets: IDisposable
         if (AssetsType.Vector == AssetsType)
         {
             // Load the behavior manager
-            LoadBehaviors    (Path.Combine(cozmoResourcesPath, "config/engine/behaviorComponent"));
+            LoadVectorBehaviors    (Path.Combine(cozmoResourcesPath, "config/engine/behaviorComponent"));
+        }
+        if (AssetsType.Cozmo == AssetsType)
+        {
+            // Load the behavior manager
+            LoadCozmoBehaviors(Path.Combine(cozmoResourcesPath, "config/engine/behaviorSystem"));
         }
 
         // Load the intents maps
@@ -223,8 +231,11 @@ public partial class Assets: IDisposable
     AudioAssets audioAssets;
 
     /// <summary>
-    /// This provides the audio assets wrapper
+    /// This provides the audio assets wrapper.
     /// </summary>
+    /// <value>
+    /// This provides the audio assets wrapper.
+    /// </value>
     public AudioAssets AudioAssets
     {
         get

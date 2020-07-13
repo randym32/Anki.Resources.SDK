@@ -17,6 +17,9 @@ public partial class Assets
     /// <summary>
     /// Provides a list of the independent sprite names
     /// </summary>
+    /// <value>
+    /// Provides a list of the independent sprite names
+    /// </value>
     public IReadOnlyCollection<string> IndependentSpriteNames
     {
         get

@@ -15,16 +15,26 @@ public class DecayGraph
     /// The dimension or type of emotion ("Happy", "Confident", "Stimulated",
     /// "Social", or "Trust").   "default" also matches.
     /// </summary>
+    /// <value>
+    /// The dimension or type of emotion ("Happy", "Confident", "Stimulated",
+    /// "Social", or "Trust").   "default" also matches.
+    /// </value>
     public string emotionType {get; set;}="default";
 
     /// <summary>
-    /// "TimeRatio" or "ValueSlope"
+    /// How to interpret the graph: "TimeRatio" or "ValueSlope"
     /// </summary>
+    /// <value>
+    /// "TimeRatio" or "ValueSlope"
+    /// </value>
     public string graphType {get; set;} = "TimeRatio";
 
     /// <summary>
     /// This is a "time ratio" describing how the value decays. 
     /// </summary>
+    /// <value>
+    /// This is a "time ratio" describing how the value decays. 
+    /// </value>
     public IReadOnlyList<XY> nodes {get; set; }
 }
 
@@ -42,6 +52,7 @@ public class XY
     /// 
     /// With value slopes, this is "the emotion value."
     /// </summary>
+    /// <value>The time (in seconds) or the emotion value</value>
     public float x {get; set; }
 
     /// <summary>
@@ -52,6 +63,7 @@ public class XY
     /// minute as a fixed amount (not a ratio)."  The value never goes below
     /// zero.
     /// </summary>
+    /// <value>The ratio of the original value or amount of decay per minute.</value>
     public float y {get; set; }
 }
 }

@@ -8,13 +8,13 @@ partial class Util
     /// <summary>
     /// Counts the number of bits set
     /// </summary>
-    /// <param name="i">value to count bits in</param>
+    /// <param name="value">The value to count bits in</param>
     /// <returns>The number of bits set</returns>
-    public static uint NumberOfBitsSet(uint i)
+    public static uint NumberOfBitsSet(uint value)
     {
-         i = i - ((i >> 1) & 0x55555555);
-         i = (i & 0x33333333) + ((i >> 2) & 0x33333333);
-         return (((i + (i >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
+         value = value - ((value >> 1) & 0x55555555);
+         value = (value & 0x33333333) + ((value >> 2) & 0x33333333);
+         return (((value + (value >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
     }
 }
 }

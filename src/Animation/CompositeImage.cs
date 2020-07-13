@@ -17,11 +17,18 @@ public partial class CompositeImage
     /// The layout defines layers with rectangular areas where images and
     /// sprite sequences will be drawn.
     /// </summary>
+    /// <value>
+    /// An array of layers with rectangular areas where images and
+    /// sprite sequences will be drawn.
+    /// </value>
     public readonly ImageLayout[] Layouts;
 
     /// <summary>
     /// An image map describes which images and sprite sequences to display.
     /// </summary>
+    /// <value>
+    /// An image map describes which images and sprite sequences to display.
+    /// </value>
     public readonly ImageMap[] Maps;
 
     /// <summary>
@@ -61,6 +68,9 @@ public partial class CompositeImage
     /// <summary>
     /// Enumerates the layers in the composite image
     /// </summary>
+    /// <value>
+    /// Enumerates the layers in the composite image
+    /// </value>
     public IEnumerable<string> LayerNames
     {
         get

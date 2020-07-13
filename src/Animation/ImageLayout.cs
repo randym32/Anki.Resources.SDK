@@ -1,10 +1,8 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
 using RCM;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {
@@ -18,6 +16,9 @@ public class ImageLayout
     /// <summary>
     /// An array of sprite boxes for showing icons and other images.
     /// </summary>
+    /// <value>
+    /// An array of sprite boxes for showing icons and other images.
+    /// </value>
     public IReadOnlyCollection<SpriteBox> spriteBoxLayout {get;set; }
 
     /// <summary>
@@ -25,6 +26,9 @@ public class ImageLayout
     /// libcozmo_engine)  The animation engine may use this to select the
     /// procedure(s) in charge managing the layer and sprite boxes.
     /// </summary>
+    /// <value>
+    /// The name of the layer.
+    /// </value>
     public string layerName {get;set; }
 
     /// <summary>
@@ -48,11 +52,14 @@ public class ImageLayout
 public class SpriteBox
 {
     /// <summary>
-    ///  The name of the sprite box.   The animation engine may use this to
+    ///  The name of the sprite box.  The animation engine may use this to
     ///  select the procedure(s) in charge managing the layer and sprite boxes.
     ///  If an image map is available for this animation, the sprite sequence
     ///  it describes will be displayed in this rectangle.
     /// </summary>
+    /// <value>
+    /// The name of the sprite box.
+    /// </value>
     public string spriteBoxName {get; set;}
 
 
@@ -62,18 +69,32 @@ public class SpriteBox
     /// 
     /// “RGBA” if the image should be drawn as is.
     /// </summary>
+    /// <value>
+    /// “CustomHue” if the PNG images should be converted from gray scale to the
+    /// colour using the current eye colour setting.
+    /// 
+    /// “RGBA” if the image should be drawn as is.
+    /// </value>
     public string spriteRenderMethod {get;set;}
 
     /// <summary>
     /// The width of the sprite box.
     /// Unit: pixels
     /// </summary>
+    /// <value>
+    /// The width of the sprite box.
+    /// Unit: pixels
+    /// </value>
     public int width {get; set;}
 
     /// <summary>
     /// The height of the sprite box.
     /// Unit: pixels
     /// </summary>
+    /// <value>
+    /// The height of the sprite box.
+    /// Unit: pixels
+    /// </value>
     public int height {get; set;}
 
 
@@ -84,6 +105,9 @@ public class SpriteBox
     /// to slide in.
     /// Unit: pixels
     /// </summary>
+    /// <value>
+    /// The x coordinate of the upper left hand corner of the sprite box.
+    /// </value>
     public int x {get; set;}
 
     /// <summary>
@@ -93,6 +117,9 @@ public class SpriteBox
     /// an image to slide in.
     /// Unit: pixels
     /// </summary>
+    /// <value>
+    /// The y coordinate of the upper left hand corner of the sprite box.
+    /// </value>
     public int y {get; set;}
 }
 
@@ -106,6 +133,9 @@ partial class Assets
     /// <summary>
     /// Maps the trigger name to the display layout filename.
     /// </summary>
+    /// <value>
+    /// Maps the trigger name to the display layout filename.
+    /// </value>
     public IReadOnlyDictionary<string, string> ImageLayoutTriggerName2Filename => imageLayoutTriggerName2Filename;
 
     /// <summary>
@@ -116,6 +146,9 @@ partial class Assets
     /// <summary>
     /// Provides a list of the image layout trigger names.
     /// </summary>
+    /// <value>
+    /// A list of the image layout trigger names.
+    /// </value>
     public IReadOnlyCollection<string> ImageLayoutTriggerNames
     {
         get
@@ -125,7 +158,7 @@ partial class Assets
     }
 
     /// <summary>
-    /// Looks up the full path given the partial file name
+    /// Looks up the full path of the image layout given the partial file name
     /// </summary>
     /// <param name="partialFileName">The partial file name, as might be given in one of the configuration files</param>
     /// <returns>null on error, otherwise the full path</returns>
@@ -134,7 +167,7 @@ partial class Assets
         // See if the file name cache has been built
         if (null == imageLayoutPathCache)
         {
-            // Construct a cross reference within the cube lights path
+            // Construct a cross reference within the image layouts path
             var path = Path.Combine(cozmoResourcesPath, "assets/compositeImageResources/imageLayouts");
             imageLayoutPathCache = Util.BuildNameToRelativePathXref(path);
         }

@@ -7,8 +7,6 @@ using System.Text.Json;
 
 namespace Anki.AudioKinetic
 {
-
-
 public partial class AudioAssets
 {
      /// <summary>
@@ -57,8 +55,9 @@ public partial class AudioAssets
 
 
     /// <summary>
-    /// The languages within the audio assets system
+    /// The languages support within the audio assets.
     /// </summary>
+    /// <value>A colleciton of the languages supported with the audio assets.</value>
     /// <remarks>These are similar to locales, but the names are different;
     /// it also incldues a special effects language (SFX)</remarks>
     public IReadOnlyCollection<string> Languages
@@ -77,6 +76,7 @@ public partial class AudioAssets
     /// <summary>
     /// Retrieves a list of the sound banks
     /// </summary>
+    /// <value>A list of the sound bank names.</value>
     /// <remarks>The banks can be localized, but there isn't any reason here</remarks>
     public IReadOnlyCollection<string> SoundBankNames
     {

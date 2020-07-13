@@ -16,22 +16,28 @@ public class EventInfo
     /// <summary>
     /// The name of the sound bank that it is part of
     /// </summary>
+    /// <value>The name of the sound bank that this event info is part of.</value>
     public string SoundBankName {get; internal set; }
 
     /// <summary>
     /// This is the event name or id; a string if it is known, otherwise a string
     /// </summary>
+    /// <value>
+    /// This is the event name or id; a string if it is known, otherwise a string
+    /// </value>
     public object Name {get; internal set; }
 
     /// <summary>
     /// This is a path within the workspace to the audio file
     /// </summary>
+    /// <value>his is a path within the workspace to the audio file</value>
     /// <remarks>This is left from the audio editing workspace</remarks>
     public string ObjectPath {get; internal set; }
 
     /// <summary>
-    /// This maps the event to the set of actions for this event
+    /// The set of actions for this event.
     /// </summary>
+    /// <value>The set of actions for this event.</value>
     public IReadOnlyList<uint> EventActions  {get; internal set; }
 }
 

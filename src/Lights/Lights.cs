@@ -13,8 +13,12 @@ public class LightFrame
 {
     /// <summary>
     /// The color for the light.
-    /// Alpha is always 1.
+    /// The alpha channel is always 1.
     /// </summary>
+    /// <value>
+    /// The color for the light.
+    /// The alpha channel is always 1.
+    /// </value>
     public Color color;
 
     /// <summary>
@@ -22,11 +26,17 @@ public class LightFrame
     /// During this time the light should be illuminated with the above color;
     /// after this the color may transition to the next colors.
     /// </summary>
+    /// <value>
+    /// The duration before a transition to the next light setting may begin.
+    /// </value>
     public uint duration_ms;
 
     /// <summary>
-    /// The time at which the light should reach this color
+    /// The time at which the light should reach this color.
     /// </summary>
+    /// <value>
+    /// The time at which the light should reach this color.
+    /// </value>
     public uint triggerTime_ms;
 
     /// <summary>
@@ -53,22 +63,35 @@ public partial class LightsPattern
     /// <summary>
     /// A text name that is associated with this structure. Optional.
     /// </summary>
+    /// <value>
+    /// A text name that is associated with this structure. Optional.
+    /// </value>
     public string name {get; internal set;}
 
     /// <summary>
     /// Default is true. Optional.
     /// </summary>
+    /// <value>
+    /// Default is true. Optional.
+    /// </value>
     public bool canBeOverridden {get; internal set;} = true;
 
     /// <summary>
     /// if zero, do this until told to stop, otherwise perform the animation
     /// for this period and proceed to next structure or stop.
     /// </summary>
+    /// <value>
+    /// if zero, do this until told to stop, otherwise perform the animation
+    /// for this period and proceed to next structure or stop.
+    /// </value>
     public float duration_ms {get; internal set;}
 
     /// <summary>
-    /// A structure describing the light patterns for each of the lgihts
+    /// A structure describing the light patterns for each of the lights.
     /// </summary>
+    /// <value>
+    /// A structure describing the light patterns for each of the lights.
+    /// </value>
     public IReadOnlyList<IReadOnlyList<LightFrame>> lightKeyFrames {get; internal set;}
 }
 

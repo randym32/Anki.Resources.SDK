@@ -14,11 +14,13 @@ public class ConditionSchema
     /// <summary>
     /// The keys that refer to conditions.
     /// </summary>
+    /// <value>The keys that refer to conditions.</value>
     public IReadOnlyList<string> conditionKeys {get;set; }
 
     /// <summary>
-    /// This maps a type to the keys that are acceptable.
+    /// This maps a condition type to the keys that are acceptable.
     /// </summary>
+    /// <value>This maps a condition type to the keys that are acceptable.</value>
     public IReadOnlyDictionary<string,IReadOnlyList<string>> type2keys {get;set; }
 }
 
@@ -42,11 +44,14 @@ public partial class Assets
     const string k_not = "not";
     const string k_and = "and";
     const string k_conditionType = "conditionType";
-    const string k_emotion = "emotion";
+    const string k_emotion  = "emotion";
 
     /// <summary>
-    /// The condition node schema
+    /// The condition node schema.
     /// </summary>
+    /// <value>
+    /// The condition node schema.
+    /// </value>
     public static readonly ConditionSchema ConditionSchema;
 
 

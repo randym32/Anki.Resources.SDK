@@ -17,16 +17,25 @@ public class EmotionEvent
     /// <summary>
     /// The name of the event.
     /// </summary>
+    /// <value>
+    /// The name of the event.
+    /// </value>
     public string name {get; set; }
 
     /// <summary>
     /// The impact on the emotion state.
     /// </summary>
+    /// <value>
+    /// The impact on the emotion state.
+    /// </value>
     public IReadOnlyList<EmotionAffector> emotionAffectors {get; set; }
 
     /// <summary>
     /// This is a "time ratio" describing how the value decays.  Optional.
     /// </summary>
+    /// <value>
+    /// This is a "time ratio" describing how the value decays.  Optional.
+    /// </value>
     public DecayGraph repetitionPenalty {get; set; }
 }
 
@@ -40,11 +49,18 @@ public class EmotionAffector
     /// The dimension or type of emotion ("Happy", "Confident", "Stimulated",
     /// "Social", or "Trust")
     /// </summary>
+    /// <value>
+    /// The dimension or type of emotion ("Happy", "Confident", "Stimulated",
+    /// "Social", or "Trust")
+    /// </value>
     public string emotionType {get; set; }
 
     /// <summary>
     /// The value to add to the emotional state.  The range is -1 to 1
     /// </summary>
+    /// <value>
+    /// The value to add to the emotional state.  The range is -1 to 1
+    /// </value>
     public float value {get; set; }
 }
 
@@ -59,6 +75,9 @@ partial class Assets
     /// <summary>
     /// Maps an emotion event name to how the emotion event is handled.
     /// </summary>
+    /// <value>
+    /// Maps an emotion event name to how the emotion event is handled.
+    /// </value>
     public IReadOnlyDictionary<string, EmotionEvent> EmotionEvents => emotionEvents;
 
     /// <summary>

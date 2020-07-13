@@ -10,10 +10,13 @@ namespace Anki.Resources.SDK
 {
 public partial class Assets
 {
-    /// <summary>
-    /// Provides a table of the servers and their addresses
-    /// </summary>
-    public IReadOnlyDictionary<string, string> Servers {get; internal set; }
+        /// <summary>
+        /// Provides a table of the servers and their addresses
+        /// </summary>
+        /// <value>
+        /// Provides a table of the servers and their addresses
+        /// </value>
+        public IReadOnlyDictionary<string, string> Servers {get; internal set; }
 
     /// <summary>
     /// Loads the information from the server_cinfig file

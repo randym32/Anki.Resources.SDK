@@ -93,8 +93,9 @@ public class IMAWaveProvider : IWaveProvider, IDisposable
     }
 
     /// <summary>
-    /// Provides the wave format
+    /// Provides the wave format.
     /// </summary>
+    /// <value>Provides the wave format.</value>
     public WaveFormat WaveFormat { get; private set; }
 
     /// <summary>

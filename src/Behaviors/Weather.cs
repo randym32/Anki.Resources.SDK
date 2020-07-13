@@ -23,6 +23,7 @@ public partial class Weather:BehaviorCoordinator
     /// <summary>
     /// Maps a weather condition to the text-localization key
     /// </summary>
+    /// <value>Maps a weather condition to the key employed in text localization</value>
     public IReadOnlyDictionary<string,string> Condition2Say=>condition2Say;
 
     /// <summary>
@@ -33,6 +34,8 @@ public partial class Weather:BehaviorCoordinator
     /// <summary>
     /// Maps the Weather Company weather string to Vector's weather condition
     /// </summary>
+    /// <value>Maps the varied weather conditions reported by the Weather
+    /// Company API to the weather conditions used internally.</value>
     public IReadOnlyDictionary<string,string> WeatherCompanyCondition2Condition=>weatherCompanyCondition2Condition;
 
     /// <summary>

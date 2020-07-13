@@ -22,17 +22,26 @@ public class SpriteSequence
     /// <summary>
     /// The format of the sprite sequence filename
     /// </summary>
+    /// <value>
+    /// The format of the sprite sequence filename
+    /// </value>
     /// <remarks>You should not use this</remarks>
     public readonly string FileNameFormat;
 
     /// <summary>
     /// The number of frames in the sequence
     /// </summary>
+    /// <value>
+    /// The number of frames in the sequence
+    /// </value>
     public int Count {get; internal set;}
 
     /// <summary>
     /// The name of the sprite sequence.
     /// </summary>
+    /// <value>
+    /// The name of the sprite sequence.
+    /// </value>
     public readonly string Name;
 
 #if false
@@ -118,6 +127,10 @@ public partial class Assets
     /// Provides a list of the sprite sequence names, preserving the case used
     /// in the file system.
     /// </summary>
+    /// <value>
+    /// A list of the sprite sequence names, preserving the case used
+    /// in the file system.
+    /// </value>
     public IEnumerable<string> SpriteSequenceNames
     {
         get

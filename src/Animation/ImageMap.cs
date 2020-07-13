@@ -14,12 +14,18 @@ public class ImageMap
     /// <summary>
     /// An array of sprite boxes for showing sprite sequences.
     /// </summary>
+    /// <value>
+    /// An array of sprite boxes for showing sprite sequences.
+    /// </value>
     public IReadOnlyCollection<SpriteMapBox> images {get;set;}
 
     /// <summary>
     ///  The name of the layer.  The animation engine may use this to select
     ///  the procedure(s) in charge managing the layer and sprite boxes.
     /// </summary>
+    /// <value>
+    ///  The name of the layer.
+    /// </value>
     public string layerName {get;set;}
 }
 
@@ -32,11 +38,17 @@ public class SpriteMapBox
     /// <summary>
     /// The name of the sprite box.
     /// </summary>
+    /// <value>
+    /// The name of the sprite box.
+    /// </value>
     public string spriteBoxName {get; set;}
 
     /// <summary>
     /// The name of a sprite sequence.
     /// </summary>
+    /// <value>
+    /// The name of a sprite sequence.
+    /// </value>
     public string spriteName {get; set;}
 }
 
@@ -47,9 +59,13 @@ partial class Assets
     /// Maps the trigger name to the image map filename.
     /// </summary>
     Dictionary<string, string> imageMapTriggerName2Filename = new Dictionary<string, string>();
+
     /// <summary>
     /// Maps the trigger name to the image map filename.
     /// </summary>
+    /// <value>
+    /// Maps the trigger name to the image map filename.
+    /// </value>
     public IReadOnlyDictionary<string, string> ImageMapTriggerName2Filename => imageMapTriggerName2Filename;
 
     /// <summary>

@@ -139,6 +139,9 @@ partial class Assets
     /// <summary>
     /// Provides a list of the cube light animation trigger names.
     /// </summary>
+    /// <value>
+    /// Provides a list of the cube light animation trigger names.
+    /// </value>
     public IReadOnlyCollection<string> CubeLightsTriggerNames
     {
         get

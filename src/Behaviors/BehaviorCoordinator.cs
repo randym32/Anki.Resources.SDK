@@ -11,20 +11,22 @@ namespace Anki.Resources.SDK
 public partial class BehaviorCoordinator
 {
     /// <summary>
-    /// A list of the independent sprites that are internally referenced
+    /// A list of internally referenced the independent sprites.
     /// </summary>
+    /// <value>The identifier (or name) of the independent sprites used by the behavior.</value>
     public readonly IReadOnlyList<string> IndependentSpritesUsed;
 
     /// <summary>
-    /// A list of the composite images internally referenced
+    /// A list of the internally referenced composite images.
     /// </summary>
+    /// <value>The identifier (or name) of the composite images used by the behavior.</value>
     public readonly IReadOnlyList<string> CompositeImagesUsed;
 
     /// <summary>
     /// Constructor for the object
     /// </summary>
-    /// <param name="independentSpritesUsed">A list of the independent sprites that are internally referenced</param>
-    /// <param name="compositeImagesUsed">A list of the composite images that are internally referenced</param>
+    /// <param name="independentSpritesUsed">A list of the internally referenced independent sprites.</param>
+    /// <param name="compositeImagesUsed">A list of the internally referenced composite images.</param>
     internal BehaviorCoordinator(IReadOnlyList<string> independentSpritesUsed=null,
                                IReadOnlyList<string> compositeImagesUsed=null)
     {

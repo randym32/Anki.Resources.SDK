@@ -10,7 +10,7 @@ This library employs the following nuget packages:
 |System.Text.Json | Used to read JSON files; the JSON files are heavily used in the resources folder |
 |System . ? Display| Used for the bitmap images |
 |EMGU.CV          |Used to provide OpenCV to C# by wrapping it.  This is used by the vision classifiers. |
-|EMGU.TF.Lite     |Used to provide TFLite to C# by wrapping it.  This is used by the vision classifiers. |
+|EMGU.TF.Lite     |Used to provide TensorFlow Lite to C# by wrapping it.  This is used by the vision classifiers. |
 
 
 Applications may have to apply some of the other packages in to be fully realized:
@@ -18,4 +18,6 @@ Applications may have to apply some of the other packages in to be fully realize
 | Package           | Purpose                                  |
 |-------------------|------------------------------------------|
 |Emgu.CV.runtime.windows | Used to provide the windows-specific openCV binaries. |
-|Emgu.TF.Lite.runtime.windows|Used to provide the windows-specific TFLite binaries. |
+|Emgu.TF.Lite.runtime.windows|Used to provide the windows-specific TensorFlow Lite binaries. |
+
+if you use another operating system, you'll want to use packages for that OS.
