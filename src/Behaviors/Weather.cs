@@ -89,22 +89,27 @@ public partial class Weather:BehaviorCoordinator
 
         // Get the text for the file
         var text = File.ReadAllText(path);
-        var d = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
+        // Get it in a convenient form
+        var items = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
 
         // Create the mapping from weather condition to the text localization id
-        foreach (var c in d)
+        foreach (var c in items)
             condition2Say[c["Condition"]]= c["Say"];
 
-        // get the path to the moods file
+        // get the path to the developer response maps file
         path = Path.Combine(configPath, "weatherResponseMaps/dev_map.json");
-        text = File.ReadAllText(path);
-        d = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
-        foreach (var c in d)
+        // Get it in a convenient form
+        text  = File.ReadAllText(path);
+        items = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
+        foreach (var c in items)
             weatherCompanyCondition2Condition[c["APIValue"]]= c["CladType"];
+
+        // Get the conversion from the weather supplier to our internal state
         path = Path.Combine(configPath, "weatherResponseMaps/weather_weathercompany.json");
-        text = File.ReadAllText(path);
-        d = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
-        foreach (var c in d)
+        // Get it in a convenient form
+        text  = File.ReadAllText(path);
+        items = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
+        foreach (var c in items)
             weatherCompanyCondition2Condition[c["APIValue"]]= c["CladType"];
     }
 }
