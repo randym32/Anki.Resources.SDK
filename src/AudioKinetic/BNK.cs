@@ -107,6 +107,11 @@ public partial class BNKReader:IDisposable
     readonly string soundBankName;
 
     /// <summary>
+    /// The folder for the sound bank files
+    /// </summary>
+    readonly string subfolder;
+
+    /// <summary>
     /// Creates an object to access the BNK file
     /// </summary>
     /// <param name="soundBankName">The name of the soundbank</param>
@@ -115,14 +120,17 @@ public partial class BNKReader:IDisposable
     /// <param name="stream">Stream with the sound bank file</param>
     /// <param name="events">An optional list of the events provided by this soundbank</param>
     /// <param name="files">An optional list of the sound files provided by this soundbank</param>
+    /// <param name="subfolder">An optional folder for the files for this bank</param>
     /// <remarks>
     /// Call Open() to begin reading the file
     /// </remarks>
     internal BNKReader(string soundBankName, IFolderWrapper folderWrapper,
-        Stream stream, IReadOnlyList<EventInfo> events, IReadOnlyList<FileInfo> files)
+        Stream stream, IReadOnlyList<EventInfo> events, IReadOnlyList<FileInfo> files,
+        string subfolder=null)
     {
         this.soundBankName = soundBankName;
         this.folderWrapper = folderWrapper;
+        this.subfolder     = subfolder?.Length>0?subfolder:null;
         // Create something to read the segment
         srcStream    = stream;
         binaryReader = new BinaryReader(srcStream, Encoding.UTF8, true);
@@ -204,7 +212,12 @@ public partial class BNKReader:IDisposable
         //if (null != x && x is FileInfo)
         {
             // Check to see if the file exits; if so, use that over whatever is in the file
-            var WEMStream = folderWrapper.Stream(WEMFileId + ".wem");
+            var fname= WEMFileId + ".wem";
+            if (null != subfolder)
+            {
+                fname = Path.Join(subfolder,fname);
+            }
+            var WEMStream = folderWrapper.Stream(fname);
             if (null != WEMStream)
             {
                 var WEM = new WEMReader(WEMStream);

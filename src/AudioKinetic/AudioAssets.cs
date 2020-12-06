@@ -191,7 +191,8 @@ public partial class AudioAssets:IDisposable
         var bnkStream = folderWrapper.Stream(entry.Path);
 
         // Open the file
-        var reader = new BNKReader(soundBankName, folderWrapper, bnkStream, entry.Events, entry.Files);
+        var reader = new BNKReader(soundBankName, folderWrapper, bnkStream,
+            entry.Events, entry.Files, Path.GetDirectoryName(entry.Path));
 
         // Open the reader
         reader.Open();
@@ -202,6 +203,7 @@ public partial class AudioAssets:IDisposable
         // things won't be out of sync
         return reader.Retain();
     }
+
 
     /// <summary>
     /// Opens the WEM file corresponding to the given file ID.
@@ -220,7 +222,7 @@ public partial class AudioAssets:IDisposable
         foreach (var soundBankKV in soundBank2Info)
         {
             // Open up the sound bank
-            var BNK = SoundBank(soundBankKV.Key, language);
+            var BNK = SoundBank(soundBankKV.Key, "Init"!= soundBankKV.Value.Name?soundBankKV.Value.Language:null);
             if (null == BNK)
                 continue;
 

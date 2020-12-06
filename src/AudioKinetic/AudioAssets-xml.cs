@@ -90,7 +90,7 @@ partial class AudioAssets
             if (null != bnk.IncludedEvents)
             foreach (var evt in bnk.IncludedEvents)
             {
-                events.Add(new EventInfo{SoundBankName=bnk.ShortName, Name=evt.Name,ObjectPath=evt.ObjectPath });
+                events.Add(new EventInfo{/*SoundBank=bnk.ShortName,*/ Name=evt.Name,ObjectPath=evt.ObjectPath });
                 // Also, add a cross ference
                 IDForString(evt.Name);
             }
