@@ -17,8 +17,8 @@ public partial class Assets
     /// <summary>
     /// Vector's display size
     /// </summary>
-    const int VectorDisplayWidth  = 184;
-    const int VectorDisplayHeight = 96;
+    internal const int VectorDisplayWidth  = 184;
+    internal const int VectorDisplayHeight = 96;
 
     /// <summary>
     /// Cozmo's display size
