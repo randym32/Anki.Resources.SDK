@@ -190,12 +190,13 @@ public partial class BNKReader:IDisposable
             // See if the tables WEM file id matches
             var fileId = binaryReader.ReadUInt32();
 
+            // This WEM file may be embedded in this sound bank
             // offset from start of DATA section
             var ofs = binaryReader.ReadUInt32();
             // The size of the WEM segment 
             var size = binaryReader.ReadUInt32();
-        if (0 == fileId)
-            return;
+            if (0 == fileId)
+                return;
 
             // Check to see if the file exists; if so, use that over whatever is in the file
             var WEMPath = fileId + ".wem";
@@ -215,11 +216,6 @@ public partial class BNKReader:IDisposable
             else
             {
                 // This WEM file is embedded in this sound bank
-                // The offset to where the WEM sound file can be found
-                var e_ofs = binaryReader.ReadUInt32();
-                // the length
-                var e_size = binaryReader.ReadUInt32();
-
                 var info = InfoFor(fileId);
                 if (null == info)
                 {
@@ -230,8 +226,8 @@ public partial class BNKReader:IDisposable
                 {
                     // Update the record
                     var fileInfo = (FileInfo) info;
-                    fileInfo.Offset=e_ofs;
-                    fileInfo.Size  =e_size;
+                    fileInfo.Offset=ofs;
+                    fileInfo.Size  =size;
                 }
             }
         }
@@ -345,12 +341,11 @@ public partial class BNKReader:IDisposable
     /// <param name="objId">the ID of the SFX object</param>
     void ReadHIRCSfx(uint objId)
     {
-#if true
         // Ignore an unknown 4 bytes
         var b = binaryReader.ReadUInt32();
 
         // Whether the sound is embedded or "streamed"
-        var isEmbedded = binaryReader.ReadUInt32();
+        var isEmbedded = binaryReader.ReadByte();
 
         // The id of the Audio file used by the sound effect (the number to use for the WEM file)
         var audioId = binaryReader.ReadUInt32();
@@ -361,8 +356,9 @@ public partial class BNKReader:IDisposable
         if (0 == audioId)
             return;
 
-        // Get the remaining info and store a record for this item
-        if (0 == isEmbedded)
+#if false
+            // Get the remaining info and store a record for this item
+            if (0 == isEmbedded)
         {
             // The offset to where the WEM sound file can be found
             var ofs = binaryReader.ReadUInt32();
@@ -404,6 +400,9 @@ public partial class BNKReader:IDisposable
 
         // Note: a lot of this seems redundant with the data-index section
 #endif
+
+        // map the id to this info
+        Add(objId, new SFX{ SoundBank = this, AudioId= audioId });
     }
 
 
@@ -414,8 +413,12 @@ public partial class BNKReader:IDisposable
     void ReadHIRCEventAction(uint objId)
     {
         // The scope
+        binaryReader.ReadByte();
         // The action type
+        binaryReader.ReadByte();
         // The id of the thing that is referencing.
+        // This refers to an SFX object
+        var refId = binaryReader.ReadUInt32();
         // A padding byte
         // Each parameters
         // paramter type
@@ -423,6 +426,9 @@ public partial class BNKReader:IDisposable
         // A padding byte
         // optional state group
         // optional switch group info
+
+        // map the id to this info
+        Add(objId, new EventAction{ SoundBank = this, SFXObjectId= refId });
     }
 
 
@@ -430,33 +436,35 @@ public partial class BNKReader:IDisposable
     /// This reads a event to event action mapping
     /// </summary>
     /// <param name="eventId">the ID of the event that maps to an action</param>
+    /// <remarks>
+    /// The action Ids refer to objects created in the Event Action 
+    /// </remarks>
     void ReadHIRCEvent(uint eventId, long endPos)
     {
         // Create a record so that we can look it up later
         var eventActions = new List<uint>();
 
         // Fetch each of event actions
-        var numObjects = binaryReader.ReadUInt32();
+        // Note: this is a byte, not a uint32 as reported elsewhere
+        var numObjects = binaryReader.ReadByte();
         for (var idx = 0; idx < numObjects; idx++)
         {
             // Sanity check, since there is some weirdness with some files
             if (binaryReader.BaseStream.Position+4 > endPos) break;
 
             // Append the event action id to the list
-            // Note: I don't know how this action id is created, it doesn't seem
-            // to be in the various metadata text fieles
             eventActions.Add(binaryReader.ReadUInt32());
         }
 
         // Look up the record
         var info = (EventInfo) InfoFor(eventId);
         if (null != info)
-            info.EventActions = eventActions;
+            info.EventActionIds = eventActions;
         else
         {
             // map the id to this info
             var eventName = AudioAssets.StringForID(eventId);
-            Add(eventId, new EventInfo{SoundBankName=soundBankName,Name=eventName??(object)eventId,EventActions=eventActions });
+            Add(eventId, new EventInfo{SoundBank=this,Name=eventName??(object)eventId,EventActionIds=eventActions });
         }
     }
 
