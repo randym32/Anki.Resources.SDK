@@ -336,6 +336,15 @@ public class WEMReader:IDisposable
     /// </example>
     public IWaveProvider WaveProvider()
     {
+        if (Data_start < 0)
+            return null;
+
+        // Sanity check that the file header was scanned.
+        // The caller should do this, but may not have.
+        if (0 == AudioFormat)
+            Open();
+
+
         binaryReader.BaseStream.Position = Data_start;
 
         // Get the WaveProvider that matches the format
@@ -370,14 +379,23 @@ public class WEMReader:IDisposable
 
         // There is maybe some extra stuff, but I'm going to ignore them unless
         // we have no choice
-        if (0xffff != AudioFormat)
+        if (2 == AudioFormat)
+        {
+            // IMA Wave format
             return;
+        }
+        if (0xffff != AudioFormat)
+        {
+            // This is a format that we don't support.  (Most likely it is a
+            // format not supported on Vector.
+            throw new System.Exception("Unsupported audio format");
+        }
 
         // This is a Vorbis style audio, get information
         binaryReader.BaseStream.Position = pos +0x18;
         numSamples = binaryReader.ReadUInt32();
         binaryReader.BaseStream.Position = pos +0x18+0x10;
-        setup_ofs = binaryReader.ReadUInt32();
+        setup_ofs  = binaryReader.ReadUInt32();
         audio_ofs  = binaryReader.ReadUInt32();
         binaryReader.BaseStream.Position = pos +0x18+0x28;
         var blocksize_1_exp = binaryReader.ReadByte();
