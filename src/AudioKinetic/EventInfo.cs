@@ -14,10 +14,10 @@ namespace Anki.AudioKinetic
 public class EventInfo
 {
     /// <summary>
-    /// The name of the sound bank that it is part of
+    /// The sound bank that it is part of
     /// </summary>
-    /// <value>The name of the sound bank that this event info is part of.</value>
-    public string SoundBankName {get; internal set; }
+    /// <value>The sound bank that this event info is part of.</value>
+    public BNKReader SoundBank {get; internal set; }
 
     /// <summary>
     /// This is the event name or id; a string if it is known, otherwise a string
@@ -35,10 +35,31 @@ public class EventInfo
     public string ObjectPath {get; internal set; }
 
     /// <summary>
+    /// The set of action ids for this event.
+    /// </summary>
+    /// <value>The set of action ids for this event.</value>
+    internal IReadOnlyList<uint> EventActionIds  {get; set; }
+
+    /// <summary>
     /// The set of actions for this event.
     /// </summary>
-    /// <value>The set of actions for this event.</value>
-    public IReadOnlyList<uint> EventActions  {get; internal set; }
+    /// <value>The set of action ids for this event.</value>
+    public IEnumerable<EventAction> EventActions
+    {
+        get
+        {
+            // scan thru the table to find the ids/names of sound related things
+            foreach (var kv in EventActionIds)
+            {
+                var obj = SoundBank.InfoFor(kv);
+                if (obj is EventAction info)
+                {
+                    // Return the event action
+                    yield return info;
+                }
+            }
+        }
+    }
 }
 
 }
