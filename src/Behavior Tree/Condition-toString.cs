@@ -188,7 +188,7 @@ public partial class Assets
         if (type2keys.TryGetValue(conditionType, out var _acceptableKeys))
         {
             // Append the parameters to the condition
-            desc += ConditionParams(cond, (ICollection<object>)_acceptableKeys);
+            desc += ConditionParams(cond, _acceptableKeys);
         }
 
         // Return the result
@@ -227,7 +227,7 @@ public partial class Assets
     /// <param name="cond">The condition JSON structure </param>
     /// <param name="paramNames">The list of potential parameters</param>
     /// <returns>The pretty printed parameters</returns>
-    static string ConditionParams(IReadOnlyDictionary<string, object> cond, ICollection<object> paramNames)
+    static string ConditionParams(IReadOnlyDictionary<string, object> cond, IReadOnlyCollection<string> paramNames)
     {
         // This will hold each of the strings for the parameters
         var condParams = new List<string>();

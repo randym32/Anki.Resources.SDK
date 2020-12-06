@@ -10,13 +10,20 @@ namespace Anki.Resources.SDK
 /// <summary>
 /// Schema information about behaviors
 /// </summary>
-class BehaviorSchema:ConditionSchema
+public class BehaviorSchema:ConditionSchema
 {
     /// <summary>
     /// The keys that refer to other behaviors (via a behavior ID)
     /// </summary>
     /// <value>The names of fields in a behavior configuration</value>
     public IReadOnlyList<string> behaviorRefKeys {get;set; }
+
+    /// <summary>
+    /// The keys that refer to other animations (via a animation trigger)
+    /// </summary>
+    /// <value>The names of fields in a behavior configuration</value>
+    public IReadOnlyList<string> animationTriggerKeys { get; set; }
+    
 }
 
 /// <summary>
@@ -33,12 +40,21 @@ public class BehaviorNode
     /// <value>The name (or identifier) of a behavior tree node.</value>
 	public string behaviorID
     {
-        get { return (string)fields["behaviorID"]; }
+        get
+        {
+            // There are two possible identifiers for the behavior.
+            // The global behaviors have a behavior ID
+            if (fields.TryGetValue("behaviorID", out var ret))
+                return (string) ret;
+
+            // Anonymous behaviors have behaviour name
+            return (string)fields["behaviorName"];
+        }
     }
 
     /// <summary>
     /// The class of the behavior.  This is used by Vector behavior engine to
-    /// link to the software that implements the functions/actiosn of the behavior.
+    /// link to the software that implements the functions/actions of the behavior.
     /// </summary>
     /// <value>The class name of the behavior.</value>
     public string behaviorClass
@@ -49,7 +65,7 @@ public class BehaviorNode
     /// <summary>
     /// The fields and values used to configure this behaviour node
     /// </summary>
-	readonly IReadOnlyDictionary<string,object> fields;
+	public readonly IReadOnlyDictionary<string,object> fields;
 
     /// <summary>
     /// Constructs a behavior node
@@ -58,6 +74,27 @@ public class BehaviorNode
     internal BehaviorNode(IReadOnlyDictionary<string, object> fields)
     {
         this.fields = fields;
+    }
+
+    /// <summary>
+    /// Provides an enumeration of anonymous behavior nodes contained within
+    /// this behavior node.
+    /// </summary>
+    public IEnumerable<BehaviorNode> anonymousBehaviors
+    {
+        get
+        {
+            // See if it contains nested behaviors
+            if (!fields.TryGetValue("anonymousBehaviors", out var x))
+            {
+                yield break;
+            }
+            // Return each of the anonymous modes
+            foreach (var b in (IEnumerable<object>)x)
+            {
+                yield return new BehaviorNode((Dictionary<string, object>)b);
+            }
+        }
     }
 }
 
@@ -95,7 +132,7 @@ public class BehaviorTree
         {
             ReadCommentHandling = JsonCommentHandling.Skip,
             AllowTrailingCommas = true,
-            IgnoreNullValues     = true
+            IgnoreNullValues    = true
         };
 
         // Scan over the behavior tree path and load all of the json files
@@ -157,7 +194,7 @@ partial class Assets
     /// <summary>
     /// The beahvior node schema
     /// </summary>
-    static readonly BehaviorSchema behaviorSchema;
+    public static readonly BehaviorSchema behaviorSchema;
 
     /// <summary>
     /// The Weather behavior.
