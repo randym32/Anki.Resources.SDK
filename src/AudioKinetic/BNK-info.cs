@@ -37,7 +37,7 @@ public partial class BNKReader
     /// </summary>
     /// <param name="id">The id of the file, event, etc</param>
     /// <returns>null if no information, otherwise, the record</returns>
-    object InfoFor(uint id)
+    internal object InfoFor(uint id)
     {
         // First, map the id to a string, if possible
         object objId;
@@ -96,6 +96,35 @@ public partial class BNKReader
             }
         }
         }
+    }
+
+    /// <summary>
+    /// This is used to find the first audio file associated the event
+    /// </summary>
+    /// <param name="id">The event id</param>
+    /// <returns>null on error, otherwise the </returns>
+    public WEMReader AudioFileForEvent(uint id)
+    {
+        // Look up 
+        if (!objectId2Info.TryGetValue(id, out var obj))
+            return null;
+        // If its an event info, scan over the actions to find the first audio file
+        if (obj is EventInfo info)
+        {
+            foreach (var action in info.EventActions)
+            {
+                var af = action.SFXObject?.AudioFile;
+                if (null != af)
+                    return af;
+            }
+        }
+        // Get the event action
+        if (obj is EventAction evtAction)
+            obj = evtAction.SFXObject;
+        // Get the audio file from an SFX
+        if (obj is SFX sfx)
+            return sfx.AudioFile;
+        return null;
     }
 
 }
