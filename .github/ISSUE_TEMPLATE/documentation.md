@@ -3,7 +3,7 @@ name: 📖 Documentation
 about: Report an issue related to documentation
 title: "[Docs]"
 labels: documentation
-assignees: miroiu
+assignees: randym32
 
 ---
 
