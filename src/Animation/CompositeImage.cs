@@ -1,9 +1,9 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {
@@ -39,17 +39,11 @@ public partial class CompositeImage
     internal CompositeImage(string layoutPath, string mapPath)
     {
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
 
         // Load the layouts file
         // Get the text for the file
         var text = File.ReadAllText(layoutPath);
-        Layouts = JsonSerializer.Deserialize<ImageLayout[]>(text, JSONOptions);
+        Layouts = JSONDeserializer.Deserialize<ImageLayout[]>(text);
         
         // Load image map file (optional)
         if (null != mapPath)
@@ -58,7 +52,7 @@ public partial class CompositeImage
             text = File.ReadAllText(mapPath);
 
             // Get it in a convenient form
-            Maps = JsonSerializer.Deserialize<ImageMap[]>(text, JSONOptions);
+            Maps = JSONDeserializer.Deserialize<ImageMap[]>(text);
         }
 
         // We would build a cross reference dictionary if was worth it...

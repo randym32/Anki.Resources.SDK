@@ -1,6 +1,6 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using RCM;
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -37,13 +37,7 @@ public partial class Assets
         var text = File.ReadAllText(path);
 
         // Get the dictionary, in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
-        var items = (object[])Util.JsonToNormal(JsonSerializer.Deserialize<JsonElement>(text, JSONOptions));
+        var items = (object[])JSONDeserializer.JsonToNormal(JSONDeserializer.Deserialize<JsonElement>(text));
 
         // internalize each of the items
         foreach (var _item in items)

@@ -1,6 +1,6 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using RCM;
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
 
@@ -86,7 +86,7 @@ partial class Assets
         {
             // Construct a cross reference within the cube lights path
             var path = Path.Combine(cozmoResourcesPath, "assets/compositeImageResources/imageMaps");
-            imageMapPathCache = Util.BuildNameToRelativePathXref(path);
+            imageMapPathCache = FS.BuildNameToRelativePathXref(path);
         }
 
         // look up the file name for the foo

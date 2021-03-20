@@ -1,5 +1,6 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using RCM;
 using System.Collections.Generic;
 using System.Drawing;
@@ -56,7 +57,7 @@ public partial class Assets
             var path = Path.Combine(cozmoResourcesPath, config.independentSpritesSearchPaths[idx]);
 
             // Add in each of the the sprites, possibly wiping out the lower priority ones
-            foreach (var kv in Util.BuildNameToRelativePathXref(path, "png"))
+            foreach (var kv in FS.BuildNameToRelativePathXref(path, "png"))
             {
                 independentSpritesPathCache[kv.Key] = kv.Value;
             }
@@ -93,7 +94,7 @@ public partial class Assets
             return null;
 
         // Remove the base path
-        return Util.RemoveBasePath(cozmoResourcesPath, path);
+        return FS.RemoveBasePath(cozmoResourcesPath, path);
     }
 
 
@@ -110,7 +111,7 @@ public partial class Assets
             return null;
 
         // Open the file, at least try
-        return Util.ImageOpen(path);
+        return RCM.Util.ImageOpen(path);
     }
 }
 }

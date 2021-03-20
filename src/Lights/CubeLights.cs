@@ -1,10 +1,9 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 using System.Drawing;
-using RCM;
 using System;
 
 namespace Anki.Resources.SDK
@@ -163,7 +162,7 @@ partial class Assets
         {
             // Construct a cross reference within the cube lights path
             var path = Path.Combine(cozmoResourcesPath, "config/engine/lights/cubeLights");
-            cubeLightsPathCache = Util.BuildNameToRelativePathXref(path);
+            cubeLightsPathCache = FS.BuildNameToRelativePathXref(path);
         }
 
         // look up the file name for the foo
@@ -192,20 +191,14 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
         // Decode the JSON file. The format varies a little between Cozmo and Vector
         CubeLightSequence[] topLevel;
         if (AssetsType.Vector == AssetsType)
-            topLevel = JsonSerializer.Deserialize<CubeLightSequence[]>(text, JSONOptions);
+            topLevel = JSONDeserializer.Deserialize<CubeLightSequence[]>(text);
         else
         {
             // Cozmo has more level of indirection
-            var tmp = JsonSerializer.Deserialize<Dictionary<string,CubeLightSequence[]>>(text, JSONOptions);
+            var tmp = JSONDeserializer.Deserialize<Dictionary<string,CubeLightSequence[]>>(text);
             // TODO: check the number of keys
             topLevel = tmp[partialName];
         }

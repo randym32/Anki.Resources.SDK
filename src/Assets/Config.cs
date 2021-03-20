@@ -1,12 +1,5 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using Resource = Anki.Resources.SDK.Properties.Resources;
-using RCM;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Anki.AudioKinetic;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {

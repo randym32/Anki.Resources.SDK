@@ -2,9 +2,9 @@
 // See LICENSE file in the project root for full license information.  
 // read eye_color_config.json here
 
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {
@@ -55,17 +55,11 @@ partial class Assets
             var path = Path.Combine(cozmoResourcesPath, "config/engine/eye_color_config.json");
 
             // Get it in a convenient form
-            var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
 
             // Load the layouts file
             // Get the text for the file
             var text = File.ReadAllText(path);
-            return eyeColors = JsonSerializer.Deserialize<IReadOnlyDictionary<string, HSColor>>(text, JSONOptions);
+            return eyeColors = JSONDeserializer.Deserialize<IReadOnlyDictionary<string, HSColor>>(text);
         }
     }
 }

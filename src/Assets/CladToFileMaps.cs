@@ -1,8 +1,8 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {
@@ -79,21 +79,16 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
+
         CTFM[] items;
         if (AssetsType.Cozmo == AssetsType)
         {
             // Load Cozmo's particular format
-            var pairs = JsonSerializer.Deserialize<CozmoCTFM>(text, JSONOptions);
+            var pairs = JSONDeserializer.Deserialize<CozmoCTFM>(text);
             items = pairs.Pairs;
         }
         else
-            items = JsonSerializer.Deserialize<CTFM[]>(text, JSONOptions);
+            items = JSONDeserializer.Deserialize<CTFM[]>(text);
 
         // Create a more useful mapping
         var ret = new Dictionary<string, string>();
@@ -114,13 +109,7 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
-        var items = JsonSerializer.Deserialize<CTLayout[]>(text, JSONOptions);
+        var items = JSONDeserializer.Deserialize<CTLayout[]>(text);
 
         // Create a more useful mapping
         var ret = new Dictionary<string, string>();
@@ -141,13 +130,7 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
-        var items = JsonSerializer.Deserialize<CTMap[]>(text, JSONOptions);
+        var items = JSONDeserializer.Deserialize<CTMap[]>(text);
 
         // Create a more useful mapping
         var ret = new Dictionary<string, string>();

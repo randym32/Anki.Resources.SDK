@@ -2,8 +2,7 @@
 // See LICENSE file in the project root for full license information.  
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
-using RCM;
+using Blackwood;
 
 namespace Anki.Resources.SDK
 {
@@ -100,20 +99,14 @@ partial class Assets
         var text = File.ReadAllText(Path.Combine(cozmoResourcesPath, "config/engine/vision_config.json"));
 
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
-        visionConfig = Util.ToDict(JsonSerializer.Deserialize<Dictionary<string,object>>(text, JSONOptions));
+        visionConfig = JSONDeserializer.ToDict(JSONDeserializer.Deserialize<Dictionary<string,object>>(text));
 
         // Load the vision schedule mediator
         var vpath= Path.Combine(cozmoResourcesPath, "config/engine/visionScheduleMediator_config.json");
         if (File.Exists(vpath))
         {
             text = File.ReadAllText(vpath);
-            var tmp  = JsonSerializer.Deserialize<Dictionary<string,VisionModeSetting[]>>(text, JSONOptions);
+            var tmp  = JSONDeserializer.Deserialize<Dictionary<string,VisionModeSetting[]>>(text);
             // Rearrange so that we can look up by item
             var config = (Dictionary<string, VisionModeSetting>) VisionScheduleConfig;
             foreach (var x in tmp["VisionModeSettings"])

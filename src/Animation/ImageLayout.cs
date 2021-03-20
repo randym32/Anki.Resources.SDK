@@ -1,5 +1,6 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using RCM;
 using System.Collections.Generic;
 using System.IO;
@@ -169,7 +170,7 @@ partial class Assets
         {
             // Construct a cross reference within the image layouts path
             var path = Path.Combine(cozmoResourcesPath, "assets/compositeImageResources/imageLayouts");
-            imageLayoutPathCache = Util.BuildNameToRelativePathXref(path);
+            imageLayoutPathCache = FS.BuildNameToRelativePathXref(path);
         }
 
         // look up the file name for the foo
@@ -204,7 +205,7 @@ partial class Assets
             return null;
 
         // Remove the base path
-        return Util.RemoveBasePath(cozmoResourcesPath, path);
+        return FS.RemoveBasePath(cozmoResourcesPath, path);
     }
 
 }

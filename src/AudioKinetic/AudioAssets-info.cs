@@ -1,9 +1,9 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
 using Anki.AudioKinetic;
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.AudioKinetic
 {
@@ -32,13 +32,7 @@ public partial class AudioAssets
         }
 
         // Lets convert the JSON basic object types
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
-        var cfg = JsonSerializer.Deserialize<SoundBankInfo[]>(text, JSONOptions);
+        var cfg = JSONDeserializer.Deserialize<SoundBankInfo[]>(text);
 
         // Go thru and convert the configuration into a bank look up table
         foreach (var entry in cfg)

@@ -1,11 +1,10 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 using System.Text.RegularExpressions;
-using RCM;
 
 namespace Anki.Resources.SDK
 {
@@ -228,7 +227,7 @@ partial class Assets
 
         // Scan over the vision config stuff
         // First a catalog the open CV classifiers 
-        var openCVClassifiers = Util.BuildNameToRelativePathXref(Path.Combine(cozmoResourcesPath,visionFolder), "yaml");
+        var openCVClassifiers = FS.BuildNameToRelativePathXref(Path.Combine(cozmoResourcesPath,visionFolder), "yaml");
 
         // Look up any configuration for those
         // Start with the Ground plane classifier
@@ -305,19 +304,13 @@ partial class Assets
                 // Get the text for the file
                 var text = File.ReadAllText(classifier.FullPath);
                 // The conversion options
-                var JSONOptions = new JsonSerializerOptions
-                    {
-                        ReadCommentHandling = JsonCommentHandling.Skip,
-                        AllowTrailingCommas = true,
-                        IgnoreNullValues    = true
-                    };
-                classifier.Definition = Util.ToDict(JsonSerializer.Deserialize<Dictionary<string,object>>(text, JSONOptions));
+                classifier.Definition = JSONDeserializer.ToDict(JSONDeserializer.Deserialize<Dictionary<string,object>>(text));
             }
         }
 
         // Put in the other classifiers in as well.
         // Catalog the TFLite classifiers 
-        var tfliteFiles = Util.BuildNameToRelativePathXref(Path.Combine(cozmoResourcesPath,visionFolder), "tflite");
+        var tfliteFiles = FS.BuildNameToRelativePathXref(Path.Combine(cozmoResourcesPath,visionFolder), "tflite");
         if (  visionConfig.TryGetValue("NeuralNets", out var NN)
            && ((Dictionary<string,object>)NN).TryGetValue("Models", out var models))
         {

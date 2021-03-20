@@ -3,6 +3,7 @@
 //
 // This file is likely to change a lot.  The animation names require, in the worst
 // case, scanning all of the files....
+using Blackwood;
 using FlatBuffers;
 using RCM;
 using System;
@@ -80,7 +81,7 @@ partial class Assets
             return;
         // Construct a cross reference within the animation bin path
         var path = Path.Combine(cozmoResourcesPath, "assets/animations");
-        foreach (var kv in Util.BuildNameToRelativePathXref(path, "bin"))
+        foreach (var kv in FS.BuildNameToRelativePathXref(path, "bin"))
         {
             animationBinPaths[kv.Key] = kv.Value;
         }
@@ -88,7 +89,7 @@ partial class Assets
         // Construct a cross reference within the animation JOSN path, and
         // append it to the existing cross referenc table
         path = Path.Combine(cozmoResourcesPath, "config/engine/animations");
-        foreach (var kv in Util.BuildNameToRelativePathXref(path, "bin"))
+        foreach (var kv in FS.BuildNameToRelativePathXref(path, "bin"))
         {
             animationBinPaths[kv.Key] = kv.Value;
         }

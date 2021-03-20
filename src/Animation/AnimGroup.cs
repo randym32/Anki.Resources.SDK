@@ -1,9 +1,8 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using RCM;
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 
 namespace Anki.Resources.SDK
@@ -151,7 +150,7 @@ partial class Assets
         {
             // Construct a cross reference within the animation groups path
             var path = Path.Combine(cozmoResourcesPath, "assets/animationGroups");
-            animationGroupsPathCache = Util.BuildNameToRelativePathXref(path);
+            animationGroupsPathCache = FS.BuildNameToRelativePathXref(path);
         }
 
         // look up the file name for the foo
@@ -181,13 +180,7 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // Get the animation group file in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
-        var item = JsonSerializer.Deserialize<AnimationGroup>(text, JSONOptions);
+        var item = JSONDeserializer.Deserialize<AnimationGroup>(text);
 
         // cache it
         if (null != item.Animations)

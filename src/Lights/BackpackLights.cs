@@ -1,11 +1,10 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using RCM;
+using Blackwood;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {
@@ -135,7 +134,7 @@ partial class Assets
         {
             // Construct a cross reference within the backpack lights path
             var path = Path.Combine(cozmoResourcesPath, "config/engine/lights/backpackLights");
-            backpackLightsPathCache = Util.BuildNameToRelativePathXref(path);
+            backpackLightsPathCache = FS.BuildNameToRelativePathXref(path);
         }
 
         // look up the file name for the foo
@@ -164,13 +163,7 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
-        var lights     = JsonSerializer.Deserialize<BackpackLights>(text, JSONOptions);
+        var lights     = JSONDeserializer.Deserialize<BackpackLights>(text);
         var numLights = AssetsType.Cozmo == AssetsType?4:3;
         var lightKeyFrames = new List<LightFrame>[numLights];
 

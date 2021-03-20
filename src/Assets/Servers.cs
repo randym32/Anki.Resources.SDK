@@ -1,9 +1,9 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using RCM;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 
 namespace Anki.Resources.SDK
@@ -31,13 +31,7 @@ public partial class Assets
         var text = File.ReadAllText(path);
 
         // Get the dictionary, in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
-        Servers = JsonSerializer.Deserialize<Dictionary<string,string>>(text, JSONOptions);
+        Servers = JSONDeserializer.Deserialize<Dictionary<string,string>>(text);
     }
 }
 }

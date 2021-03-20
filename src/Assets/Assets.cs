@@ -1,13 +1,11 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
 using Resource = Anki.Resources.SDK.Properties.Resources;
-using RCM;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Anki.AudioKinetic;
-using System.Text.Json;
 using System.Drawing;
+using Blackwood;
 
 namespace Anki.Resources.SDK
 {
@@ -50,27 +48,21 @@ public partial class Assets: IDisposable
     static Assets()
     {
         // Load the JSON files
-        // The JSON parsing options
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
+
         // Get the text file
         var text = Resource.ResourceManager.GetString("assets.json");
         // Get the dictionary
-        config = JsonSerializer.Deserialize<AssetsConfig>(text, JSONOptions);
+        config = JSONDeserializer.Deserialize<AssetsConfig>(text);
 
         // Get the text file
         text = Resource.ResourceManager.GetString("condition.json");
 
         // Get the dictionary
-        ConditionSchema = JsonSerializer.Deserialize<ConditionSchema>(text, JSONOptions);
+        ConditionSchema = JSONDeserializer.Deserialize<ConditionSchema>(text);
 
         // Get the text file
         text           = Resource.ResourceManager.GetString("behavior.json");
-        behaviorSchema = JsonSerializer.Deserialize<BehaviorSchema>(text, JSONOptions);
+        behaviorSchema = JSONDeserializer.Deserialize<BehaviorSchema>(text);
     }
 
 
@@ -116,13 +108,7 @@ public partial class Assets: IDisposable
             var text = File.ReadAllText(path);
 
             // Get it in a convenient form
-            var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
-            var config = JsonSerializer.Deserialize<Platform_config>(text, JSONOptions);
+            var config = JSONDeserializer.Deserialize<Platform_config>(text);
 
             // Construct the cozmoResources patch
             cozmoResourcesPath = Path.Combine(basePath, config.DataPlatformResourcesPath.Substring(1));

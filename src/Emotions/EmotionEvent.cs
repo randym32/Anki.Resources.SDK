@@ -1,9 +1,9 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 
 namespace Anki.Resources.SDK
@@ -87,13 +87,6 @@ partial class Assets
     void LoadEmotionEvents(string configPath)
     {
         // Get the dictionary
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
-
         emotionEvents = new Dictionary<string,EmotionEvent>();
 
         // Enumerate over the directory
@@ -107,7 +100,7 @@ partial class Assets
             // but Cozmo has two, so support falling back to it
             try
             {
-                var d = JsonSerializer.Deserialize<Dictionary<string, EmotionEvent[]>>(text, JSONOptions);
+                var d = JSONDeserializer.Deserialize<Dictionary<string, EmotionEvent[]>>(text);
 
                 // Add the events to the table
                 foreach (var evt in d["emotionEvents"])
@@ -118,7 +111,7 @@ partial class Assets
             catch(Exception)
             {
                 // Single emotion event
-                var evt = JsonSerializer.Deserialize<EmotionEvent>(text, JSONOptions);
+                var evt = JSONDeserializer.Deserialize<EmotionEvent>(text);
                 emotionEvents[evt.name]=evt;
             }
         }

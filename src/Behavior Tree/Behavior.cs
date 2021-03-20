@@ -1,9 +1,8 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using RCM;
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {
@@ -127,14 +126,6 @@ public class BehaviorTree
         // Load all of the behavior nodes, and sort out the tree
         // It's just easier rather than trying to on demand load them
 
-        // The JSON parsing options
-        var JSONOptions = new JsonSerializerOptions
-        {
-            ReadCommentHandling = JsonCommentHandling.Skip,
-            AllowTrailingCommas = true,
-            IgnoreNullValues    = true
-        };
-
         // Scan over the behavior tree path and load all of the json files
         var files = Directory.EnumerateFiles(behaviorsPath, "*.json", SearchOption.AllDirectories);
         var _behaviorNodes = new Dictionary<string, BehaviorNode>();
@@ -144,7 +135,7 @@ public class BehaviorTree
             var text = File.ReadAllText(currentFile);
 
             // Get the dictionary
-            var d = Util.ToDict(JsonSerializer.Deserialize<Dictionary<string, object>>(text, JSONOptions));
+            var d = JSONDeserializer.ToDict(JSONDeserializer.Deserialize<Dictionary<string, object>>(text));
 
             // Store in tree
             var node = new BehaviorNode(d);
@@ -269,14 +260,8 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // The JSON parsing options
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
         // Get the dictionary mapping the main behavior to the behavior node id
-        behavior2BehaviorNodeId = JsonSerializer.Deserialize<Dictionary<string, string>>(text, JSONOptions);
+        behavior2BehaviorNodeId = JSONDeserializer.Deserialize<Dictionary<string, string>>(text);
 
 
         // Load the behavior trees

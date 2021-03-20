@@ -1,8 +1,8 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
+using Blackwood;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace Anki.Resources.SDK
 {
@@ -78,19 +78,13 @@ public partial class Weather:BehaviorCoordinator
     )
     {
         // Get the configuration
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues    = true
-            };
         // get the path to the mapping to localization id file
         var path = Path.Combine(configPath, "condition_to_tts.json");
 
         // Get the text for the file
         var text = File.ReadAllText(path);
         // Get it in a convenient form
-        var items = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
+        var items = JSONDeserializer.Deserialize<Dictionary<string, string>[]>(text);
 
         // Create the mapping from weather condition to the text localization id
         foreach (var c in items)
@@ -100,7 +94,7 @@ public partial class Weather:BehaviorCoordinator
         path = Path.Combine(configPath, "weatherResponseMaps/dev_map.json");
         // Get it in a convenient form
         text  = File.ReadAllText(path);
-        items = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
+        items = JSONDeserializer.Deserialize<Dictionary<string, string>[]>(text);
         foreach (var c in items)
             weatherCompanyCondition2Condition[c["APIValue"]]= c["CladType"];
 
@@ -108,7 +102,7 @@ public partial class Weather:BehaviorCoordinator
         path = Path.Combine(configPath, "weatherResponseMaps/weather_weathercompany.json");
         // Get it in a convenient form
         text  = File.ReadAllText(path);
-        items = JsonSerializer.Deserialize<Dictionary<string, string>[]>(text, JSONOptions);
+        items = JSONDeserializer.Deserialize<Dictionary<string, string>[]>(text);
         foreach (var c in items)
             weatherCompanyCondition2Condition[c["APIValue"]]= c["CladType"];
     }

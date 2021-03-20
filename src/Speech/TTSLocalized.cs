@@ -1,10 +1,9 @@
 ﻿// Copyright © 2020 Randall Maas. All rights reserved.
 // See LICENSE file in the project root for full license information.  
-using RCM;
+using Blackwood;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 
 // This structure isn't used directly but does have some clarification
@@ -147,13 +146,7 @@ partial class Assets
         var text = File.ReadAllText(path);
 
         // Get it in a convenient form
-        var JSONOptions = new JsonSerializerOptions
-            {
-                ReadCommentHandling = JsonCommentHandling.Skip,
-                AllowTrailingCommas = true,
-                IgnoreNullValues=true
-            };
-        var translations = Util.ToDict(JsonSerializer.Deserialize<Dictionary<string,object>>(text, JSONOptions));
+        var translations = JSONDeserializer.ToDict(JSONDeserializer.Deserialize<Dictionary<string,object>>(text));
 
         // Get the smartling and its rules to match the substitutions
         var   smartling = (Dictionary<string, object>)translations["smartling"];
